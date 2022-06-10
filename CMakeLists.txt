@@ -3,4 +3,4 @@ project(glcraft)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(glcraft WIN32 main.cpp)
+add_executable(glcraft WIN32 main.cpp src/Window.cpp src/Window.hpp src/glcraft.hpp src/glcraft.cpp)

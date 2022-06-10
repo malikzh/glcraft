@@ -1,5 +1,5 @@
-#include <windows.h>
+#include "src/glcraft.hpp"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pCmdLine, int nCmdShow) {
-    return 0;
+    return glcraft_boot(hInstance, nCmdShow);
 }
