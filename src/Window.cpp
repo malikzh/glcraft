@@ -50,6 +50,68 @@ Window::Window(HINSTANCE hInstance, int nShowCmd) {
 
     // Get Device Context
     hDC = GetDC(hWnd);
+
+    // Configure OpenGL context
+    PIXELFORMATDESCRIPTOR pfd =
+            {
+                    sizeof(PIXELFORMATDESCRIPTOR),
+                    1,
+                    PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER,    //Flags
+                    PFD_TYPE_RGBA,        // The kind of framebuffer. RGBA or palette.
+                    32,                   // Colordepth of the framebuffer.
+                    0, 0, 0, 0, 0, 0,
+                    0,
+                    0,
+                    0,
+                    0, 0, 0, 0,
+                    24,                   // Number of bits for the depthbuffer
+                    8,                    // Number of bits for the stencilbuffer
+                    0,                    // Number of Aux buffers in the framebuffer.
+                    PFD_MAIN_PLANE,
+                    0,
+                    0, 0, 0
+            };
+
+    int  letWindowsChooseThisPixelFormat;
+    letWindowsChooseThisPixelFormat = ChoosePixelFormat(hDC, &pfd);
+    SetPixelFormat(hDC,letWindowsChooseThisPixelFormat, &pfd);
+
+    glContext = wglCreateContext(hDC);
+    wglMakeCurrent(hDC, glContext);
+
+    // Initialize GLEW
+    if (glewInit() != GLEW_OK) {
+        throw std::exception("GLEW initialization failure");
+    }
+
+    RECT rect;
+
+    if(GetClientRect(hWnd, &rect)) {
+        glViewport(0, 0, rect.right, rect.bottom);
+    } else {
+        glViewport(0, 0, _defaultWidth, _defaultHeight);
+    }
+
+}
+
+Window::~Window() {
+    wglMakeCurrent(NULL, NULL);
+
+    if (glContext) {
+        wglDeleteContext(glContext);
+    }
+
+    if (hDC && hWnd) {
+        ReleaseDC(hWnd, hDC);
+    }
+
+    if(hWnd) {
+        DestroyWindow(hWnd);
+    }
+}
+
+void Window::swapBuffers() {
+    SwapBuffers(hDC);
 }
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {

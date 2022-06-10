@@ -10,5 +10,5 @@ find_package(GLEW REQUIRED)
 
 include_directories(${OPENGL_INCLUDE_DIRS} ${GLEW_INCLUDE_DIRS})
 
-add_executable(glcraft WIN32 main.cpp src/Window.cpp src/Window.hpp src/glcraft.hpp src/glcraft.cpp)
+add_executable(glcraft WIN32 main.cpp src/Window.cpp src/Window.hpp src/glcraft.hpp src/glcraft.cpp src/Scene.cpp src/Scene.hpp)
 target_link_libraries(glcraft ${OPENGL_LIBRARIES} ${GLEW_STATIC_LIBRARIES})

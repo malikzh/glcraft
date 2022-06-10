@@ -1,10 +1,12 @@
 #include "glcraft.hpp"
 
 std::unique_ptr<Window> window;
+std::unique_ptr<Scene> scene;
 
 int glcraft_boot(HINSTANCE hInstance, int nShowCmd) noexcept {
     try {
         window = std::make_unique<Window>(hInstance, nShowCmd);
+        scene = std::make_unique<Scene>();
 
         glcraft_mainloop();
         return 0;
@@ -29,7 +31,8 @@ void glcraft_mainloop() {
             DispatchMessage(&msg);
         }
 
-        // todo rendering loop
+        scene->render();
+        window->swapBuffers();
     }
 }
 

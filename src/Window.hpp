@@ -14,8 +14,12 @@ class Window {
 public:
     HWND hWnd = nullptr;
     HDC hDC = nullptr;
+    HGLRC glContext = nullptr;
 
     Window(HINSTANCE hInstance, int nShowCmd);
+    ~Window();
+
+    void swapBuffers();
 };
 
 
