@@ -7,6 +7,7 @@
 
 #include <windows.h>
 #include <gl/glew.h>
+#include "../dependencies/stb_image.h"
 
 #include "Window.hpp"
 #include "Scene.hpp"
