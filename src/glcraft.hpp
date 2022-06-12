@@ -8,9 +8,18 @@
 #include <windows.h>
 #include <gl/glew.h>
 #include "../dependencies/stb_image.h"
+#include "../dependencies/linmath.h"
+
+// Forward declaration
+class Window;
+class Scene;
+class Shader;
+class Model;
 
 #include "Window.hpp"
 #include "Scene.hpp"
+#include "Shader.hpp"
+#include "Model.hpp"
 
 extern std::unique_ptr<Window> window;
 extern std::unique_ptr<Scene> scene;
