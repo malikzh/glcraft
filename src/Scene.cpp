@@ -17,7 +17,7 @@ Scene::Scene() {
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
-    shader = Shader::fromFile("shader/vertex.glsl", "shader/fragment.glsl");
+    shader = Shader::fromFile("resources/shader/vertex.glsl", "resources/shader/fragment.glsl");
 }
 
 /**
