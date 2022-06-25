@@ -97,9 +97,9 @@ std::string __openFile(const std::string& path) {
     return ss.str();
 }
 
-Shader* Shader::fromFile(const std::string& vertexShaderFile, const std::string& fragmentShaderFile) noexcept(false) {
+std::unique_ptr<Shader> Shader::fromFile(const std::string& vertexShaderFile, const std::string& fragmentShaderFile) noexcept(false) {
     std::string vertexShader = __openFile(vertexShaderFile);
     std::string fragmentShader = __openFile(fragmentShaderFile);
 
-    return new Shader(vertexShader, fragmentShader);
+    return std::make_unique<Shader>(vertexShader, fragmentShader);
 }

@@ -17,7 +17,7 @@ public:
     void setValue(const std::string &name, float value) const;
     void setValueMatrix4x4(const std::string &name, const float* matrix) const;
 
-    static Shader* fromFile(const std::string& vertexShaderFile, const std::string& fragmentShaderFile) noexcept(false);
+    static std::unique_ptr<Shader> fromFile(const std::string& vertexShaderFile, const std::string& fragmentShaderFile) noexcept(false);
 };
 
 

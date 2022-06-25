@@ -7,7 +7,7 @@ GLfloat vertices[] = {
 };
 
 unsigned int VBO;
-Shader* shader;
+std::unique_ptr<Shader> shader;
 
 /// Инициализация сцены
 Scene::Scene() {
