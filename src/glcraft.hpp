@@ -14,6 +14,19 @@
 #include "../dependencies/stb_image.h"
 #include "../dependencies/linmath.h"
 
+// Block types
+enum class BlockType {
+    AIR = 0, // Воздух
+    GRASS,   // Блок травы
+    DIRT,    // Земля
+    SAND,    // Песок
+    STONE,   // Камень
+    BEDROCK, // Бедрок
+    WOOD,    // Дерево
+    LEAVES,  // Листва
+    WATER,   // Вода
+};
+
 // Forward declaration
 class Window;
 class Scene;
@@ -21,21 +34,21 @@ class Shader;
 class Chunk;
 class TextureManager;
 
+
 struct Vertex {
     vec4 position;
     vec3 normal;
     vec2 texCoords;
 };
 
-struct Texture {
-    GLuint id;
-    std::string type;
+struct Mesh {
+    std::vector<Vertex> vertices;
+    std::vector<GLuint> indices;
 };
 
 #include "Window.hpp"
 #include "Scene.hpp"
 #include "Shader.hpp"
-#include "Mesh.hpp"
 #include "Chunk.hpp"
 #include "TextureManager.hpp"
 
