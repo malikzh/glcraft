@@ -125,6 +125,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
                 return 0;
             }
             break;
+        case WM_SIZE:
+        {
+            UINT width = LOWORD(lParam);
+            UINT height = HIWORD(lParam);
+
+            glViewport(0, 0, (GLint)width, (GLint)height);
+        }
+            break;
         default:
             return DefWindowProc(hWnd, msg, wParam, lParam);
     }
