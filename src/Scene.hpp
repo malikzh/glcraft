@@ -8,6 +8,8 @@
 
 class Scene {
 public:
+    mat4x4 projectionMatrix;
+
     Scene();
     void render();
 

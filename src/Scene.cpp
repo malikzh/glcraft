@@ -1,3 +1,5 @@
+#define _USE_MATH_DEFINES
+#include <cmath>
 #include "glcraft.hpp"
 
 GLfloat vertices[] = {
@@ -19,7 +21,7 @@ std::vector<GLfloat> tx;
 /// Инициализация сцены
 Scene::Scene() {
     // {0.0f, 1.0f - 1.0f / 10.0f, 1.0f / 6.0f, 1.0f}
-    frontFace = cube_createFrontMesh(*texman->getCoord(0));
+    frontFace = cube_createFrontMesh(*texman->getCoord(1));
 
 
     for (Vertex v : frontFace->vertices) {
@@ -49,6 +51,10 @@ Scene::Scene() {
     glEnableVertexAttribArray(1);
 
     shader = Shader::fromFile("resources/shader/vertex.glsl", "resources/shader/fragment.glsl");
+
+    // Initialize projection matrix
+
+    mat4x4_perspective(projectionMatrix, 90.0f * (M_PI / 180.0f), 1.0f, 0.1f, 100.0f);
 }
 
 /**
@@ -57,8 +63,19 @@ Scene::Scene() {
  * Это главный метод для рендеринга сцены
  */
 void Scene::render() {
+    mat4x4 matrix;
+    mat4x4_identity(matrix);
+
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     shader->use();
+
+    // apply projection matrix
+    mat4x4 pm;
+    mat4x4_mul(pm, projectionMatrix, matrix);
+    // todo
+
+    shader->setValueMatrix4x4("projectionMatrix", matrix);
+
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }

@@ -80,8 +80,8 @@ void Shader::setValue(const std::string &name, float value) const {
     glUniform1f(glGetUniformLocation(_program, name.c_str()), value);
 }
 
-void Shader::setValueMatrix4x4(const std::string &name, const float* matrix) const {
-    glUniformMatrix4fv(glGetUniformLocation(_program, name.c_str()), 1, GL_FALSE, matrix);
+void Shader::setValueMatrix4x4(const std::string &name, const mat4x4 matrix) const {
+    glUniformMatrix4fv(glGetUniformLocation(_program, name.c_str()), 1, GL_FALSE, (GLfloat*)matrix);
 }
 
 Shader::~Shader() {
