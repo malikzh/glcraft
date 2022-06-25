@@ -1,3 +1,5 @@
+#include <fstream>
+#include <sstream>
 #include "glcraft.hpp"
 
 Shader::Shader(const std::string& vertexShaderSource, const std::string& fragmentShaderSource) noexcept(false) {
@@ -86,4 +88,18 @@ Shader::~Shader() {
     if (_program != GL_FALSE) {
         glDeleteProgram(_program);
     }
+}
+
+std::string __openFile(const std::string& path) {
+    std::ifstream s(path);
+    std::stringstream ss;
+    ss << s.rdbuf();
+    return ss.str();
+}
+
+Shader* Shader::fromFile(const std::string& vertexShaderFile, const std::string& fragmentShaderFile) noexcept(false) {
+    std::string vertexShader = __openFile(vertexShaderFile);
+    std::string fragmentShader = __openFile(fragmentShaderFile);
+
+    return new Shader(vertexShader, fragmentShader);
 }
