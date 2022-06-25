@@ -2,10 +2,14 @@
 
 std::unique_ptr<Window> window;
 std::unique_ptr<Scene> scene;
+std::unique_ptr<TextureManager> texman;
 
 int glcraft_boot(HINSTANCE hInstance, int nShowCmd) noexcept {
     try {
+        stbi_set_flip_vertically_on_load(true);
+
         window = std::make_unique<Window>(hInstance, nShowCmd);
+        texman = std::make_unique<TextureManager>();
         scene = std::make_unique<Scene>();
 
         glcraft_mainloop();
