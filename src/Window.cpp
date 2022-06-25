@@ -14,7 +14,7 @@ Window::Window(HINSTANCE hInstance, int nShowCmd) {
     // Register class
     WNDCLASS wc;
     memset(&wc, 0, sizeof(wc));
-    wc.style = 0;
+    wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
     wc.lpfnWndProc = (WNDPROC) WndProc;
     wc.cbClsExtra = 0;
     wc.cbWndExtra = 0;
