@@ -25,3 +25,26 @@ TextureManager::~TextureManager() {
     glBindTexture(GL_TEXTURE_2D, 0);
     glDeleteTextures(1, &_id);
 }
+
+
+std::unique_ptr<TexCoord> TextureManager::getCoord(unsigned int id) {
+    unsigned int cols = _width / BLOCK_TEXTURE_WIDTH;
+    unsigned int rows = _height / BLOCK_TEXTURE_HEIGHT;
+
+    unsigned int maxId =  rows * cols - 1;
+    id = max(id, 0);
+    id = min(id, maxId);
+
+    unsigned int x = id % cols;
+    unsigned int y = id / cols;
+
+    float u = 1.0f / (float)cols;
+    float v = 1.0f / (float)rows;
+
+    return std::make_unique<TexCoord>(TexCoord{
+        .left   = u * (float)x,
+        .bottom = 1.0f - v * (float)(y + 1),
+        .right  = u * (float)(x + 1),
+        .top    = 1.0f - v * (float)y
+    });
+}

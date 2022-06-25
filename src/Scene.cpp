@@ -18,7 +18,8 @@ std::vector<GLfloat> tx;
 
 /// Инициализация сцены
 Scene::Scene() {
-    frontFace = cube_createFrontMesh({0.0f, 1.0f - 1.0f / 10.0f, 1.0f / 6.0f, 1.0f});
+    // {0.0f, 1.0f - 1.0f / 10.0f, 1.0f / 6.0f, 1.0f}
+    frontFace = cube_createFrontMesh(*texman->getCoord(0));
 
 
     for (Vertex v : frontFace->vertices) {
