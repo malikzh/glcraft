@@ -7,6 +7,7 @@
 #include <memory>
 #include <string>
 #include <exception>
+#include <utility>
 #include <vector>
 
 #include <windows.h>
@@ -46,6 +47,13 @@ struct Mesh {
     std::vector<GLuint> indices;
 };
 
+struct TexCoord {
+    GLfloat left;
+    GLfloat bottom;
+    GLfloat right;
+    GLfloat top;
+};
+
 #include "Window.hpp"
 #include "Scene.hpp"
 #include "Shader.hpp"
@@ -59,5 +67,7 @@ extern std::unique_ptr<TextureManager> texman;
 int glcraft_boot(HINSTANCE hInstance, int nShowCmd) noexcept;
 void glcraft_mainloop();
 void glcraft_error(const char* message);
+
+std::unique_ptr<Mesh> cube_createFrontMesh(const TexCoord& texCoords);
 
 #endif //GLCRAFT_GLCRAFT_HPP
