@@ -17,6 +17,7 @@ std::unique_ptr<Mesh> frontFace;
 std::unique_ptr<Mesh> backFace;
 std::unique_ptr<Mesh> leftFace;
 std::unique_ptr<Mesh> rightFace;
+std::unique_ptr<Mesh> topFace;
 
 std::vector<GLfloat> vx;
 std::vector<GLfloat> tx;
@@ -29,6 +30,7 @@ Scene::Scene() {
     backFace = cube_createBackMesh(*texman->getCoord(1));
     leftFace = cube_createLeftMesh(*texman->getCoord(0));
     rightFace = cube_createRightMesh(*texman->getCoord(0));
+    topFace = cube_createTopMesh(*texman->getCoord(2));
 
 
     for (const Vertex& v : frontFace->vertices) {
@@ -77,6 +79,19 @@ Scene::Scene() {
     }
 
     offset += backFace->vertices.size();
+
+    // top
+
+    for (const Vertex& v : topFace->vertices) {
+        v.position.pack4(&vx);
+        v.texCoords.pack2(&tx);
+    }
+
+    for (auto it = topFace->indices.begin(); it != topFace->indices.end(); it++) {
+        ex.push_back(*it + offset);
+    }
+
+    offset += topFace->vertices.size();
 
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
