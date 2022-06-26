@@ -10,7 +10,11 @@ public:
     static const int size    = 16;
     static const int sectionsSize = 24;
 
+
+    std::unique_ptr<Mesh> mesh;
+
     void setBlock(uint32_t x, uint32_t y, uint32_t z, BlockType type);
+    void buildMesh();
 
 private:
     std::vector<ChunkSection> _sections;

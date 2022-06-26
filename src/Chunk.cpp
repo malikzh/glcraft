@@ -20,3 +20,15 @@ void Chunk::setBlock(uint32_t x, uint32_t y, uint32_t z, BlockType type) {
 
     s->setBlock(x, y, z, type);
 }
+
+void Chunk::buildMesh() {
+    mesh = std::make_unique<Mesh>();
+
+    for (ChunkSection& section : _sections) {
+        if (!section.mesh) {
+            section.buildMesh();
+        }
+
+        mesh->add(section.mesh.get());
+    }
+}

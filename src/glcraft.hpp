@@ -90,7 +90,7 @@ struct Vertex {
 struct Mesh {
     std::vector<Vertex> vertices;
     std::vector<GLuint> indices;
-    void add(Mesh* mesh);
+    void add(Mesh* mesh, Matrix* matrix = nullptr);
 };
 
 struct TexCoord {
