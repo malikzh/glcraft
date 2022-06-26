@@ -17,7 +17,10 @@ struct ChunkPairHasher {
 
 class World {
 public:
+    std::unique_ptr<Mesh> mesh;
+
     void setBlock(int32_t x, int32_t y, int32_t z, BlockType type);
+    void buildMesh();
 
 private:
     std::unordered_map<std::pair<int32_t, int32_t>, Chunk, ChunkPairHasher> _chunks;

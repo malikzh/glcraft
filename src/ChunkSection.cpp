@@ -28,12 +28,14 @@ void ChunkSection::buildMesh() {
         std::unique_ptr<Mesh> topFace = cube_createTopMesh(*texman->getCoord(faces.top));
         std::unique_ptr<Mesh> bottomFace = cube_createBottomMesh(*texman->getCoord(faces.bottom));
 
-        mesh->add(frontFace.get());
-        mesh->add(backFace.get());
-        mesh->add(leftFace.get());
-        mesh->add(rightFace.get());
-        mesh->add(topFace.get());
-        mesh->add(bottomFace.get());
+        auto m = Matrix::translation((float)pos[0], (float)pos[1], (float)pos[2]);
+
+        mesh->add(frontFace.get(), m.get());
+        mesh->add(backFace.get(), m.get());
+        mesh->add(leftFace.get(), m.get());
+        mesh->add(rightFace.get(), m.get());
+        mesh->add(topFace.get(), m.get());
+        mesh->add(bottomFace.get(), m.get());
     }
 }
 
