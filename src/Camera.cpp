@@ -1,3 +1,4 @@
+#define _USE_MATH_DEFINES
 #include <cmath>
 #include "glcraft.hpp"
 
@@ -25,6 +26,14 @@ void Camera::setPOV(Matrix* matrix) {
 void Camera::handleInput() {
     rotateY(-inman->mouseDX / 50.0f);
     rotateX(-inman->mouseDY / 50.0f);
+
+    if (look.x < -M_PI_2) {
+        look.x = -M_PI_2;
+    }
+
+    if (look.x > M_PI_2) {
+        look.x = M_PI_2;
+    }
 
     Vector movementVector(sin(look.y), 0.0f, cos(look.y));
 
