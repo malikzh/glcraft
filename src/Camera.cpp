@@ -15,29 +15,29 @@ void Camera::move(float x, float y, float z) {
 }
 
 void Camera::setPOV(Matrix* matrix) {
-    matrix->translate(position.x, position.y, position.z);
-    matrix->rotateY(look.y);
-    matrix->rotateX(look.x);
+    matrix->translate(-position.x, -position.y, -position.z);
+    matrix->rotateY(-look.y);
+    matrix->rotateX(-look.x);
 }
 
 
 void Camera::handleInput() {
     if (inman->leftKeyPressed) {
-        move(0.01f, 0.0f, 0.0f);
-    }
-
-    if (inman->rightKeyPressed) {
         move(-0.01f, 0.0f, 0.0f);
     }
 
-    if (inman->forwardKeyPressed) {
-        move(0.0f, 0.0f, 0.01f);
+    if (inman->rightKeyPressed) {
+        move(0.01f, 0.0f, 0.0f);
     }
 
-    if (inman->backwardKeyPressed) {
+    if (inman->forwardKeyPressed) {
         move(0.0f, 0.0f, -0.01f);
     }
 
-    rotateY(inman->mouseDX / 10.0f);
-    rotateX(inman->mouseDY / 10.0f);
+    if (inman->backwardKeyPressed) {
+        move(0.0f, 0.0f, 0.01f);
+    }
+
+    rotateY(-inman->mouseDX / 50.0f);
+    rotateX(-inman->mouseDY / 50.0f);
 }

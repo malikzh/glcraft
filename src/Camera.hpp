@@ -10,7 +10,7 @@ class Camera {
 public:
     Vector up   = Vector(0.0f, 1.0f, 0.0f); // верх камеры
     Vector look = Vector(0.0f, 0.0f, 0.0f); // углы направления взгляда
-    Vector position  = Vector(0.0f, 0.0f, 0.0f); // где находится камера в пространстве
+    Vector position  = Vector(0.0f, 0.0f, -3.0f); // где находится камера в пространстве
 
     void rotateY(float angle);
     void rotateX(float angle);
