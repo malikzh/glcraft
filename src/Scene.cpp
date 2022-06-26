@@ -71,10 +71,9 @@ void Scene::render() {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     shader->use();
+    camera->handleInput();
 
-    matrix.rotateZ(x);
-    x += inman->mouseDX;
-
+    camera->setPOV(&matrix);
     //matrix.apply(projectionMatrix.get());
     shader->setValue("projectionMatrix", &matrix);
 
