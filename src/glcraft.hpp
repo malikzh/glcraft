@@ -38,25 +38,9 @@ class Matrix;
 class Vector;
 class InputManager;
 class Camera;
-
-
-struct Vertex {
-    vec4 position;
-    vec3 normal;
-    vec2 texCoords;
-};
-
-struct Mesh {
-    std::vector<Vertex> vertices;
-    std::vector<GLuint> indices;
-};
-
-struct TexCoord {
-    GLfloat left;
-    GLfloat bottom;
-    GLfloat right;
-    GLfloat top;
-};
+struct Vertex;
+struct Mesh;
+struct TexCoord;
 
 #include "Window.hpp"
 #include "Scene.hpp"
@@ -73,6 +57,24 @@ extern std::unique_ptr<Scene> scene;
 extern std::unique_ptr<TextureManager> texman;
 extern std::unique_ptr<InputManager> inman;
 extern std::unique_ptr<Camera> camera;
+
+struct Vertex {
+    Vector position;
+    Vector normal;
+    Vector texCoords;
+};
+
+struct Mesh {
+    std::vector<Vertex> vertices;
+    std::vector<GLuint> indices;
+};
+
+struct TexCoord {
+    GLfloat left;
+    GLfloat bottom;
+    GLfloat right;
+    GLfloat top;
+};
 
 int glcraft_boot(HINSTANCE hInstance, int nShowCmd) noexcept;
 void glcraft_mainloop();

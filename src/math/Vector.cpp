@@ -45,3 +45,22 @@ std::unique_ptr<Vector> Vector::cross(const Vector* b) {
 std::unique_ptr<Vector> Vector::copy() const {
     return std::make_unique<Vector>(*this);
 }
+
+
+void Vector::pack4(std::vector<float>* vector) {
+    vector->push_back(x);
+    vector->push_back(y);
+    vector->push_back(z);
+    vector->push_back(w);
+}
+
+void Vector::pack3(std::vector<float>* vector) {
+    vector->push_back(x);
+    vector->push_back(y);
+    vector->push_back(z);
+}
+
+void Vector::pack2(std::vector<float>* vector) {
+    vector->push_back(x);
+    vector->push_back(y);
+}

@@ -25,13 +25,8 @@ Scene::Scene() {
 
 
     for (Vertex v : frontFace->vertices) {
-        vx.push_back(v.position[0]);
-        vx.push_back(v.position[1]);
-        vx.push_back(v.position[2]);
-        vx.push_back(v.position[3]);
-
-        tx.push_back(v.texCoords[0]);
-        tx.push_back(v.texCoords[1]);
+        v.position.pack4(&vx);
+        v.texCoords.pack2(&tx);
     }
 
     glEnable(GL_CULL_FACE);
