@@ -54,7 +54,7 @@ Scene::Scene() {
 
     // Initialize projection matrix
 
-    mat4x4_perspective(projectionMatrix, 90.0f * (M_PI / 180.0f), 1.0f, 0.1f, 100.0f);
+    projectionMatrix = Matrix::perspective(45.0f * (M_PI / 180.0f), 1.0f, 1.0f, 100.0f);
 }
 
 /**
@@ -62,20 +62,21 @@ Scene::Scene() {
  *
  * Это главный метод для рендеринга сцены
  */
+
+float x = 0.0f;
+
 void Scene::render() {
-    mat4x4 matrix;
-    mat4x4_identity(matrix);
+    Matrix matrix;
 
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     shader->use();
 
-    // apply projection matrix
-    mat4x4 pm;
-    mat4x4_mul(pm, projectionMatrix, matrix);
-    // todo
+    matrix.rotateZ(x);
+    x += 0.01f;
 
-    shader->setValueMatrix4x4("projectionMatrix", matrix);
+    //matrix.apply(projectionMatrix.get());
+    shader->setValue("projectionMatrix", &matrix);
 
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }

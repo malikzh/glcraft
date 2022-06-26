@@ -34,6 +34,7 @@ class Scene;
 class Shader;
 class Chunk;
 class TextureManager;
+class Matrix;
 
 
 struct Vertex {
@@ -59,6 +60,7 @@ struct TexCoord {
 #include "Shader.hpp"
 #include "Chunk.hpp"
 #include "TextureManager.hpp"
+#include "math/Matrix.hpp"
 
 extern std::unique_ptr<Window> window;
 extern std::unique_ptr<Scene> scene;

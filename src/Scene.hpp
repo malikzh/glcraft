@@ -8,7 +8,7 @@
 
 class Scene {
 public:
-    mat4x4 projectionMatrix;
+    std::unique_ptr<Matrix> projectionMatrix;
 
     Scene();
     void render();
