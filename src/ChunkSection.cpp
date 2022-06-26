@@ -7,7 +7,6 @@ size_t ChunkSection::_positionToIndex(uint32_t x, uint32_t y, uint32_t z) {
 void ChunkSection::setBlock(uint32_t x, uint32_t y, uint32_t z, BlockType type) {
     std::size_t index = _positionToIndex(x, y, z);
     _blocks.insert(std::make_pair(index, type));
-    buildMesh();
 }
 
 void ChunkSection::buildMesh() {
