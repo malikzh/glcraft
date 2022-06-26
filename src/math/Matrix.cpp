@@ -70,7 +70,7 @@ std::unique_ptr<Matrix> Matrix::perspective(float fovy, float aspect, float n, f
     for (float v : {
             a, 0.0f, 0.0f, 0.0f,
             0.0f,    b, 0.0f, 0.0f,
-            0.0f, 0.0f,    c, 0.0f,
+            0.0f, 0.0f,    c, -1.0f,
             0.0f, 0.0f,    d, 0.0f,
     }) {
         m->data[i++] = v;
@@ -134,7 +134,7 @@ std::unique_ptr<Matrix> Matrix::rotationX(float angle) {
     float c = cosf(angle);
 
     m->data[5] = c;
-    m->data[5] = s;
+    m->data[6] = s;
     m->data[9] = -s;
     m->data[10] = c;
 

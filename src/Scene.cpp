@@ -74,7 +74,7 @@ void Scene::render() {
     camera->handleInput();
 
     camera->setPOV(&matrix);
-    //matrix.apply(projectionMatrix.get());
+    matrix.apply(projectionMatrix.get());
     shader->setValue("projectionMatrix", &matrix);
 
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);

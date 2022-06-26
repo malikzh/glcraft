@@ -16,8 +16,8 @@ void Camera::move(float x, float y, float z) {
 
 void Camera::setPOV(Matrix* matrix) {
     matrix->translate(position.x, position.y, position.z);
-    //matrix->rotateY(look.y);
-    //matrix->rotateX(look.x);
+    matrix->rotateY(look.y);
+    matrix->rotateX(look.x);
 }
 
 
@@ -31,10 +31,13 @@ void Camera::handleInput() {
     }
 
     if (inman->forwardKeyPressed) {
-        move(0.0f, 0.0f, 0.01f);
+        move(0.0f, 0.0f, -0.01f);
     }
 
     if (inman->backwardKeyPressed) {
-        move(0.0f, 0.0f, -0.01f);
+        move(0.0f, 0.0f, 0.01f);
     }
+
+    rotateY(inman->mouseDX / 10.0f);
+    rotateX(inman->mouseDY / 10.0f);
 }
