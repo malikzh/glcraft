@@ -81,6 +81,7 @@ void glcraft_mainloop();
 void glcraft_error(const char* message);
 
 std::unique_ptr<Mesh> cube_createFrontMesh(const TexCoord& texCoords);
+std::unique_ptr<Mesh> cube_createLeftMesh(const TexCoord& texCoords);
 std::unique_ptr<Mesh> cube_createRightMesh(const TexCoord& texCoords);
 
 #endif //GLCRAFT_GLCRAFT_HPP

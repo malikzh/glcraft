@@ -44,3 +44,15 @@ std::unique_ptr<Mesh> cube_createRightMesh(const TexCoord& texCoords) {
 
     return mesh;
 }
+
+std::unique_ptr<Mesh> cube_createLeftMesh(const TexCoord& texCoords) {
+    auto mesh = cube_createFrontMesh(texCoords);
+    auto matrix = Matrix::rotationY(-M_PI_2);
+
+    for (Vertex& v : mesh->vertices) {
+        v.position.apply(matrix.get());
+        v.normal.apply(matrix.get());
+    }
+
+    return mesh;
+}
