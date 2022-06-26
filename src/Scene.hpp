@@ -9,6 +9,7 @@
 class Scene {
 public:
     std::unique_ptr<Matrix> projectionMatrix;
+    std::unique_ptr<Shader> shader;
 
     Scene();
     void render();
