@@ -85,5 +85,6 @@ std::unique_ptr<Mesh> cube_createBackMesh(const TexCoord& texCoords);
 std::unique_ptr<Mesh> cube_createLeftMesh(const TexCoord& texCoords);
 std::unique_ptr<Mesh> cube_createRightMesh(const TexCoord& texCoords);
 std::unique_ptr<Mesh> cube_createTopMesh(const TexCoord& texCoords);
+std::unique_ptr<Mesh> cube_createBottomMesh(const TexCoord& texCoords);
 
 #endif //GLCRAFT_GLCRAFT_HPP

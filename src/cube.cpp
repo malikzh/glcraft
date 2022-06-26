@@ -80,3 +80,15 @@ std::unique_ptr<Mesh> cube_createTopMesh(const TexCoord& texCoords) {
 
     return mesh;
 }
+
+std::unique_ptr<Mesh> cube_createBottomMesh(const TexCoord& texCoords) {
+    auto mesh = cube_createFrontMesh(texCoords);
+    auto matrix = Matrix::rotationX(M_PI_2);
+
+    for (Vertex& v : mesh->vertices) {
+        v.position.apply(matrix.get());
+        v.normal.apply(matrix.get());
+    }
+
+    return mesh;
+}
