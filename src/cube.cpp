@@ -33,6 +33,18 @@ std::unique_ptr<Mesh> cube_createFrontMesh(const TexCoord& texCoords) {
     });
 }
 
+std::unique_ptr<Mesh> cube_createBackMesh(const TexCoord& texCoords) {
+    auto mesh = cube_createFrontMesh(texCoords);
+    auto matrix = Matrix::rotationY(M_PI);
+
+    for (Vertex& v : mesh->vertices) {
+        v.position.apply(matrix.get());
+        v.normal.apply(matrix.get());
+    }
+
+    return mesh;
+}
+
 std::unique_ptr<Mesh> cube_createRightMesh(const TexCoord& texCoords) {
     auto mesh = cube_createFrontMesh(texCoords);
     auto matrix = Matrix::rotationY(M_PI_2);

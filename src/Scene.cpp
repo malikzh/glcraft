@@ -14,6 +14,7 @@ unsigned int EBO;
 
 std::unique_ptr<Shader> shader;
 std::unique_ptr<Mesh> frontFace;
+std::unique_ptr<Mesh> backFace;
 std::unique_ptr<Mesh> leftFace;
 std::unique_ptr<Mesh> rightFace;
 
@@ -25,6 +26,7 @@ std::vector<GLuint> ex;
 Scene::Scene() {
     // {0.0f, 1.0f - 1.0f / 10.0f, 1.0f / 6.0f, 1.0f}
     frontFace = cube_createFrontMesh(*texman->getCoord(1));
+    backFace = cube_createBackMesh(*texman->getCoord(1));
     leftFace = cube_createLeftMesh(*texman->getCoord(0));
     rightFace = cube_createRightMesh(*texman->getCoord(0));
 
@@ -62,6 +64,19 @@ Scene::Scene() {
     }
 
     offset += rightFace->vertices.size();
+
+    // back
+
+    for (const Vertex& v : backFace->vertices) {
+        v.position.pack4(&vx);
+        v.texCoords.pack2(&tx);
+    }
+
+    for (auto it = backFace->indices.begin(); it != backFace->indices.end(); it++) {
+        ex.push_back(*it + offset);
+    }
+
+    offset += backFace->vertices.size();
 
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
