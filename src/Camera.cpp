@@ -31,11 +31,11 @@ void Camera::handleInput() {
     }
 
     if (inman->forwardKeyPressed) {
-        move(0.0f, 0.0f, -0.01f);
+        move(0.0f, 0.0f, 0.01f);
     }
 
     if (inman->backwardKeyPressed) {
-        move(0.0f, 0.0f, 0.01f);
+        move(0.0f, 0.0f, -0.01f);
     }
 
     rotateY(inman->mouseDX / 10.0f);

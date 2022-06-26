@@ -34,6 +34,7 @@ Scene::Scene() {
         tx.push_back(v.texCoords[1]);
     }
 
+    glEnable(GL_CULL_FACE);
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * vx.size(), vx.data(), GL_STATIC_DRAW);
