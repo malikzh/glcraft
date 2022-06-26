@@ -52,6 +52,15 @@ struct TexCoord;
 // Util
 size_t hash_combine( size_t lhs, size_t rhs );
 
+struct BlockTexture {
+    GLuint front;
+    GLuint back;
+    GLuint left;
+    GLuint right;
+    GLuint top;
+    GLuint bottom;
+};
+
 #include "Window.hpp"
 #include "Scene.hpp"
 #include "Shader.hpp"
@@ -70,6 +79,7 @@ extern std::unique_ptr<TextureManager> texman;
 extern std::unique_ptr<InputManager> inman;
 extern std::unique_ptr<Camera> camera;
 extern std::unique_ptr<World> world;
+extern std::unordered_map<BlockType, BlockTexture> blockTexture;
 
 struct Vertex {
     Vector position;
