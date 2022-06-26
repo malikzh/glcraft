@@ -54,7 +54,7 @@ Scene::Scene() {
 
     // Initialize projection matrix
 
-    projectionMatrix = Matrix::perspective(45.0f * (M_PI / 180.0f), 1.0f, 1.0f, 100.0f);
+    projectionMatrix = createProjectionMatrix(1.0f);
 }
 
 /**
@@ -79,4 +79,13 @@ void Scene::render() {
     shader->setValue("projectionMatrix", &matrix);
 
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+}
+
+
+void Scene::updateProjectionMatrix(float aspect) {
+    projectionMatrix = createProjectionMatrix(aspect);
+}
+
+std::unique_ptr<Matrix> Scene::createProjectionMatrix(float aspect) {
+    return Matrix::perspective(45.0f * (M_PI / 180.0f), aspect, 1.0f, 100.0f);
 }

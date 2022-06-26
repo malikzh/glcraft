@@ -12,7 +12,9 @@ public:
 
     Scene();
     void render();
+    void updateProjectionMatrix(float aspect);
 
+    static std::unique_ptr<Matrix> createProjectionMatrix(float aspect);
 };
 
 

@@ -123,6 +123,32 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
             if (wParam == VK_ESCAPE) {
                 PostQuitMessage(0);
                 return 0;
+            } else if (wParam == 'W') {
+                inman->forwardKeyPressed = true;
+            } else if (wParam == 'S') {
+                inman->backwardKeyPressed = true;
+            } else if (wParam == 'A') {
+                inman->leftKeyPressed = true;
+            } else if (wParam == 'D') {
+                inman->rightKeyPressed = true;
+            } else if (wParam == VK_SPACE) {
+                inman->spaceKeyPressed = true;
+            } else if (wParam == VK_F11) {
+                ShowWindow(hWnd, SW_SHOWMAXIMIZED);
+                UpdateWindow(hWnd);
+            }
+            break;
+        case WM_KEYUP:
+            if (wParam == 'W') {
+                inman->forwardKeyPressed = false;
+            } else if (wParam == 'S') {
+                inman->backwardKeyPressed = false;
+            } else if (wParam == 'A') {
+                inman->leftKeyPressed = false;
+            } else if (wParam == 'D') {
+                inman->rightKeyPressed = false;
+            } else if (wParam == VK_SPACE) {
+                inman->spaceKeyPressed = false;
             }
             break;
         case WM_SIZE:
@@ -131,6 +157,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
             UINT height = HIWORD(lParam);
 
             glViewport(0, 0, (GLint)width, (GLint)height);
+
+            if (scene) {
+                scene->updateProjectionMatrix((float)width / (float)height);
+            }
+
         }
             break;
         default:

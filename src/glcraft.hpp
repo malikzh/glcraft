@@ -35,6 +35,7 @@ class Shader;
 class Chunk;
 class TextureManager;
 class Matrix;
+class InputManager;
 
 
 struct Vertex {
@@ -61,10 +62,12 @@ struct TexCoord {
 #include "Chunk.hpp"
 #include "TextureManager.hpp"
 #include "math/Matrix.hpp"
+#include "InputManager.hpp"
 
 extern std::unique_ptr<Window> window;
 extern std::unique_ptr<Scene> scene;
 extern std::unique_ptr<TextureManager> texman;
+extern std::unique_ptr<InputManager> inman;
 
 int glcraft_boot(HINSTANCE hInstance, int nShowCmd) noexcept;
 void glcraft_mainloop();
