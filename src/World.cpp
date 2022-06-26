@@ -10,5 +10,17 @@ void World::setBlock(int32_t x, int32_t y, int32_t z, BlockType type) {
         _chunks[pos] = Chunk();
     }
 
-    _chunks[pos].setBlock(x % Chunk::size, y, z % Chunk::size, type);
+    x %= Chunk::size;
+    z %= Chunk::size;
+
+    if (x < 0) {
+        x = 16 + x;
+    }
+
+
+    if (z < 0) {
+        z = 16 + z;
+    }
+
+    _chunks[pos].setBlock(x, y, z, type);
 }

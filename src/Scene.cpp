@@ -26,6 +26,8 @@ std::vector<GLuint> ex;
 
 /// Инициализация сцены
 Scene::Scene() {
+    terrain_generate_flat();
+
     // {0.0f, 1.0f - 1.0f / 10.0f, 1.0f / 6.0f, 1.0f}
     frontFace = cube_createFrontMesh(*texman->getCoord(1));
     backFace = cube_createBackMesh(*texman->getCoord(1));
