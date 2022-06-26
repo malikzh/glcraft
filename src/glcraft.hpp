@@ -4,11 +4,15 @@
 #define BLOCK_TEXTURE_WIDTH 16
 #define BLOCK_TEXTURE_HEIGHT 16
 
+
+#include <cstdint>
 #include <memory>
+#include <array>
 #include <string>
 #include <exception>
 #include <utility>
 #include <vector>
+#include <unordered_map>
 
 #include <windows.h>
 #include <gl/glew.h>
@@ -16,7 +20,7 @@
 #include "../dependencies/linmath.h"
 
 // Block types
-enum class BlockType {
+enum class BlockType : uint8_t {
     AIR = 0, // Воздух
     GRASS,   // Блок травы
     DIRT,    // Земля
@@ -33,6 +37,7 @@ class Window;
 class Scene;
 class Shader;
 class Chunk;
+class ChunkSection;
 class TextureManager;
 class Matrix;
 class Vector;
@@ -45,6 +50,7 @@ struct TexCoord;
 #include "Window.hpp"
 #include "Scene.hpp"
 #include "Shader.hpp"
+#include "ChunkSection.hpp"
 #include "Chunk.hpp"
 #include "TextureManager.hpp"
 #include "math/Matrix.hpp"
