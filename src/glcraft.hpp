@@ -90,6 +90,7 @@ struct Vertex {
 struct Mesh {
     std::vector<Vertex> vertices;
     std::vector<GLuint> indices;
+    void add(Mesh* mesh);
 };
 
 struct TexCoord {

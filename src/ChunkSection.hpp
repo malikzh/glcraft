@@ -10,11 +10,16 @@ class ChunkSection {
 public:
     static const int sectionSize = 16;
 
+    std::unique_ptr<Mesh> mesh;
+
     void setBlock(uint32_t x, uint32_t y, uint32_t z, BlockType type);
+    void buildMesh();
 
 private:
-    std::vector<BlockType> _blocks;
+    std::unordered_map<std::size_t, BlockType> _blocks;
     static size_t _positionToIndex(uint32_t x, uint32_t y, uint32_t z);
+    static std::unique_ptr<uint32_t[]> _indexToPosition(size_t index);
+
 };
 
 
