@@ -92,6 +92,8 @@ Window::Window(HINSTANCE hInstance, int nShowCmd) {
         glViewport(0, 0, _defaultWidth, _defaultHeight);
     }
 
+    ShowCursor(FALSE);
+
 }
 
 Window::~Window() {
@@ -169,4 +171,42 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     }
 
     return 0;
+}
+
+POINT Window::_getCursorCenterPoint() const {
+    RECT rect;
+    POINT center;
+
+    center.x = 0;
+    center.y = 0;
+
+    if (GetClientRect(hWnd, &rect)) {
+        center.x = rect.right / 2L;
+        center.y = rect.bottom / 2L;
+
+        ClientToScreen(hWnd, &center);
+    }
+
+    return center;
+}
+
+void Window::moveCursorToCenter() const {
+    POINT point = _getCursorCenterPoint();
+    SetCursorPos(point.x, point.y);
+}
+
+POINT Window::getCursorDeviation() const {
+    POINT cursor;
+
+    cursor.x = 0;
+    cursor.y = 0;
+
+    if (GetCursorPos(&cursor)) {
+        POINT center = _getCursorCenterPoint();
+
+        cursor.x -= center.x;
+        cursor.y -= center.y;
+    }
+
+    return cursor;
 }

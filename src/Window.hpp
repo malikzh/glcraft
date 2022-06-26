@@ -11,6 +11,8 @@ class Window {
 
     HINSTANCE _hInstance = nullptr;
     int _nShowCmd = 0;
+
+    POINT _getCursorCenterPoint() const;
 public:
     HWND hWnd = nullptr;
     HDC hDC = nullptr;
@@ -20,6 +22,8 @@ public:
     ~Window();
 
     void swapBuffers();
+    void moveCursorToCenter() const;
+    POINT getCursorDeviation() const;
 };
 
 

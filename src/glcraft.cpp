@@ -28,6 +28,8 @@ void glcraft_mainloop() {
     bool active = true;
 
     while(active) {
+        window->moveCursorToCenter();
+
         while(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
             if (msg.message == WM_QUIT) {
                 active = false;
@@ -36,6 +38,12 @@ void glcraft_mainloop() {
             TranslateMessage(&msg);
             DispatchMessage(&msg);
         }
+
+        // Update cursor
+        POINT mouse = window->getCursorDeviation();
+
+        inman->mouseDX = (float)mouse.x;
+        inman->mouseDY = (float)mouse.y;
 
         scene->render();
         window->swapBuffers();

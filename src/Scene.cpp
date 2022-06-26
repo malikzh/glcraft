@@ -73,7 +73,7 @@ void Scene::render() {
     shader->use();
 
     matrix.rotateZ(x);
-    x += 0.01f;
+    x += inman->mouseDX;
 
     //matrix.apply(projectionMatrix.get());
     shader->setValue("projectionMatrix", &matrix);
