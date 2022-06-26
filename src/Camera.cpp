@@ -1,3 +1,4 @@
+#include <cmath>
 #include "glcraft.hpp"
 
 void Camera::rotateY(float angle) {
@@ -22,22 +23,39 @@ void Camera::setPOV(Matrix* matrix) {
 
 
 void Camera::handleInput() {
+    rotateY(-inman->mouseDX / 50.0f);
+    rotateX(-inman->mouseDY / 50.0f);
+
+    Vector movementVector(sin(look.y), 0.0f, cos(look.y));
+
+
+    auto sideVector = movementVector.cross(&up);
+    sideVector->norm();
+
+    sideVector->scale(speed);
+    movementVector.scale(speed);
+
     if (inman->leftKeyPressed) {
-        move(-0.01f, 0.0f, 0.0f);
+        position.add(sideVector.get());
     }
 
     if (inman->rightKeyPressed) {
-        move(0.01f, 0.0f, 0.0f);
+        position.add(sideVector->invert());
     }
 
     if (inman->forwardKeyPressed) {
-        move(0.0f, 0.0f, -0.01f);
+        position.add(movementVector.invert());
     }
 
     if (inman->backwardKeyPressed) {
-        move(0.0f, 0.0f, 0.01f);
+        position.add(&movementVector);
     }
 
-    rotateY(-inman->mouseDX / 50.0f);
-    rotateX(-inman->mouseDY / 50.0f);
+    if (inman->spaceKeyPressed) {
+        position.y += speed;
+    }
+
+    if (inman->shiftKeyPressed) {
+        position.y -= speed;
+    }
 }

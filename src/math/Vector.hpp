@@ -18,12 +18,12 @@ public:
     Vector(const Vector& v) : Vector(v.x, v.y, v.z, v.w) {}
 
     const Vector* add(const Vector* b);
-    const Vector* invert(const Vector* b);
+    const Vector* invert();
     const Vector* scale(float s);
-    float length() const;
+    [[nodiscard]] float length() const;
     const Vector* norm();
-    const Vector* cross(const Vector* b);
-    std::unique_ptr<Vector> copy() const;
+    std::unique_ptr<Vector> cross(const Vector* b);
+    [[nodiscard]] std::unique_ptr<Vector> copy() const;
 };
 
 

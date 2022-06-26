@@ -9,7 +9,7 @@ const Vector* Vector::add(const Vector* b) {
     return this;
 }
 
-const Vector* Vector::invert(const Vector* b) {
+const Vector* Vector::invert() {
     x = -x;
     y = -y;
     z = -z;
@@ -30,24 +30,16 @@ float Vector::length() const {
 }
 
 const Vector* Vector::norm() {
-    float len = length();
-
-    x /= len;
-    y /= len;
-    z /= len;
-
+    scale(1.0f/length());
     return this;
 }
 
 /// Векторное произведение векторов
-const Vector* Vector::cross(const Vector* b) {
-    auto a = this->copy();
-
-    x = a->y * b->z - a->z * b->y;
-    y = a->z * b->x - a->x * b->z;
-    z = a->x * b->y - a->y * b->x;
-
-    return this;
+std::unique_ptr<Vector> Vector::cross(const Vector* b) {
+    auto a = this;
+    return std::make_unique<Vector>(a->y * b->z - a->z * b->y,
+                                    a->z * b->x - a->x * b->z,
+                                    a->x * b->y - a->y * b->x);
 }
 
 std::unique_ptr<Vector> Vector::copy() const {

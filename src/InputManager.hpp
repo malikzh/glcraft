@@ -16,6 +16,7 @@ public:
     bool leftKeyPressed     = false;
     bool rightKeyPressed    = false;
     bool spaceKeyPressed    = false;
+    bool shiftKeyPressed    = false;
 };
 
 

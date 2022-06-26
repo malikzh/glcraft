@@ -138,6 +138,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
             } else if (wParam == VK_F11) {
                 ShowWindow(hWnd, SW_SHOWMAXIMIZED);
                 UpdateWindow(hWnd);
+            } else if (wParam == VK_SHIFT) {
+                inman->shiftKeyPressed = true;
             }
             break;
         case WM_KEYUP:
@@ -151,6 +153,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
                 inman->rightKeyPressed = false;
             } else if (wParam == VK_SPACE) {
                 inman->spaceKeyPressed = false;
+            } else if (wParam == VK_SHIFT) {
+                inman->shiftKeyPressed = false;
             }
             break;
         case WM_SIZE:
