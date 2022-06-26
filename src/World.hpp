@@ -21,6 +21,8 @@ public:
 
     void setBlock(int32_t x, int32_t y, int32_t z, BlockType type);
     void buildMesh();
+    void buffer();
+    void render();
 
 private:
     std::unordered_map<std::pair<int32_t, int32_t>, Chunk, ChunkPairHasher> _chunks;

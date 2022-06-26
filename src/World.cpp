@@ -40,3 +40,17 @@ void World::buildMesh() {
         mesh->add(it->second.mesh.get());
     }
 }
+
+
+void World::buffer() {
+    for (auto it = _chunks.begin(); it != _chunks.end(); it++) {
+        it->second.buffer();
+    }
+}
+
+
+void World::render() {
+    for (auto it = _chunks.begin(); it != _chunks.end(); it++) {
+        it->second.render();
+    }
+}

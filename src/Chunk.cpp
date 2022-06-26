@@ -35,3 +35,57 @@ void Chunk::buildMesh() {
         y+= sectionsSize;
     }
 }
+
+void Chunk::buffer() {
+    if (!_vao) {
+        glGenVertexArrays(1, &_vao);
+    }
+
+    glBindVertexArray(_vao);
+
+    if (!_vbo) {
+        glGenBuffers(1, &_vbo);
+    }
+
+    glBindBuffer(GL_ARRAY_BUFFER, _vbo);
+
+    // Vertices
+    auto vertices = mesh->getVerticesArray();
+
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * mesh->getVerticesArraySize(), vertices.get(), GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    // Textures
+    auto texcoords = mesh->getTexCoordArray();
+
+    if (!_vbo2) {
+        glGenBuffers(1, &_vbo2);
+    }
+
+    glBindBuffer(GL_ARRAY_BUFFER, _vbo2);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * mesh->getTexCoordArraySize(), texcoords.get(), GL_STATIC_DRAW);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(1);
+
+    // Indices
+    if (!_ebo) {
+        glGenBuffers(1, &_ebo);
+    }
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ebo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * mesh->indices.size(), mesh->indices.data(), GL_STATIC_DRAW);
+    glBindVertexArray(0);
+
+    _indicesSize = mesh->indices.size();
+}
+
+void Chunk::render() {
+    if (!_vao) {
+        return;
+    }
+
+    glBindVertexArray(_vao);
+    glDrawElements(GL_TRIANGLES, (GLint)_indicesSize, GL_UNSIGNED_INT, 0);
+    glBindVertexArray(0);
+}

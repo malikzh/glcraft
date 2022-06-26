@@ -91,6 +91,10 @@ struct Mesh {
     std::vector<Vertex> vertices;
     std::vector<GLuint> indices;
     void add(Mesh* mesh, Matrix* matrix = nullptr);
+    std::unique_ptr<float[]> getVerticesArray() const;
+    std::unique_ptr<float[]> getTexCoordArray() const;
+    size_t getVerticesArraySize() const;
+    size_t getTexCoordArraySize() const;
 };
 
 struct TexCoord {
