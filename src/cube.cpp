@@ -1,3 +1,5 @@
+#define _USE_MATH_DEFINES
+#include <cmath>
 #include "glcraft.hpp"
 
 std::unique_ptr<Mesh> cube_createFrontMesh(const TexCoord& texCoords) {
@@ -29,4 +31,16 @@ std::unique_ptr<Mesh> cube_createFrontMesh(const TexCoord& texCoords) {
                 0, 2, 3,
                 },
     });
+}
+
+std::unique_ptr<Mesh> cube_createRightMesh(const TexCoord& texCoords) {
+    auto mesh = cube_createFrontMesh(texCoords);
+    auto matrix = Matrix::rotationY(M_PI_2);
+
+    for (Vertex& v : mesh->vertices) {
+        v.position.apply(matrix.get());
+        v.normal.apply(matrix.get());
+    }
+
+    return mesh;
 }

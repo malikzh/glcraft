@@ -14,22 +14,41 @@ unsigned int EBO;
 
 std::unique_ptr<Shader> shader;
 std::unique_ptr<Mesh> frontFace;
+std::unique_ptr<Mesh> rightFace;
 
 std::vector<GLfloat> vx;
 std::vector<GLfloat> tx;
+std::vector<GLuint> ex;
 
 /// Инициализация сцены
 Scene::Scene() {
     // {0.0f, 1.0f - 1.0f / 10.0f, 1.0f / 6.0f, 1.0f}
     frontFace = cube_createFrontMesh(*texman->getCoord(1));
+    rightFace = cube_createRightMesh(*texman->getCoord(0));
 
 
-    for (Vertex v : frontFace->vertices) {
+    for (const Vertex& v : frontFace->vertices) {
         v.position.pack4(&vx);
         v.texCoords.pack2(&tx);
     }
 
+    ex.insert(ex.end(), frontFace->indices.begin(), frontFace->indices.end());
+
+    size_t offset = frontFace->vertices.size();
+
+    for (const Vertex& v : rightFace->vertices) {
+        v.position.pack4(&vx);
+        v.texCoords.pack2(&tx);
+    }
+
+
+
+    for (auto it = rightFace->indices.begin(); it != rightFace->indices.end(); it++) {
+        ex.push_back(*it + offset);
+    }
+
     glEnable(GL_CULL_FACE);
+    glEnable(GL_DEPTH_TEST);
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * vx.size(), vx.data(), GL_STATIC_DRAW);
@@ -38,7 +57,7 @@ Scene::Scene() {
 
     glGenBuffers(1, &EBO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * frontFace->indices.size(), frontFace->indices.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * ex.size(), ex.data(), GL_STATIC_DRAW);
 
     glGenBuffers(1, &VBO2);
     glBindBuffer(GL_ARRAY_BUFFER, VBO2);
@@ -65,7 +84,7 @@ void Scene::render() {
     Matrix matrix;
 
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     shader->use();
     camera->handleInput();
 
@@ -73,7 +92,7 @@ void Scene::render() {
     matrix.apply(projectionMatrix.get());
     shader->setValue("projectionMatrix", &matrix);
 
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, ex.size(), GL_UNSIGNED_INT, 0);
 }
 
 

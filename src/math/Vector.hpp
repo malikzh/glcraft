@@ -24,9 +24,11 @@ public:
     const Vector* norm();
     std::unique_ptr<Vector> cross(const Vector* b);
     [[nodiscard]] std::unique_ptr<Vector> copy() const;
-    void pack4(std::vector<float>* vector);
-    void pack3(std::vector<float>* vector);
-    void pack2(std::vector<float>* vector);
+    void pack4(std::vector<float>* vector) const;
+    void pack3(std::vector<float>* vector) const;
+    void pack2(std::vector<float>* vector) const;
+    const Vector* apply(const Matrix* m);
+    const Vector* set(const Vector* v);
 };
 
 
