@@ -24,11 +24,14 @@ void Chunk::setBlock(uint32_t x, uint32_t y, uint32_t z, BlockType type) {
 void Chunk::buildMesh() {
     mesh = std::make_unique<Mesh>();
 
+    size_t y = 0;
+
     for (ChunkSection& section : _sections) {
         if (!section.mesh) {
             section.buildMesh();
         }
 
-        mesh->add(section.mesh.get());
+        mesh->add(section.mesh.get(), Matrix::translation(0.0f, (float)y, 0.0f).get());
+        y+= sectionsSize;
     }
 }
