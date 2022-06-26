@@ -1,10 +1,10 @@
 #include "glcraft.hpp"
 
 void Chunk::setBlock(uint32_t x, uint32_t y, uint32_t z, BlockType type) {
-    uint32_t section = y / sections;
-    y %= sections;
+    uint32_t section = y / sectionsSize;
+    y %= sectionsSize;
 
-    if (section >= sections) {
+    if (section >= sectionsSize) {
         return;
     }
 

@@ -13,6 +13,7 @@
 #include <utility>
 #include <vector>
 #include <unordered_map>
+#include <functional>
 
 #include <windows.h>
 #include <gl/glew.h>
@@ -37,6 +38,7 @@ class Window;
 class Scene;
 class Shader;
 class Chunk;
+class World;
 class ChunkSection;
 class TextureManager;
 class Matrix;
@@ -47,11 +49,15 @@ struct Vertex;
 struct Mesh;
 struct TexCoord;
 
+// Util
+size_t hash_combine( size_t lhs, size_t rhs );
+
 #include "Window.hpp"
 #include "Scene.hpp"
 #include "Shader.hpp"
 #include "ChunkSection.hpp"
 #include "Chunk.hpp"
+#include "World.hpp"
 #include "TextureManager.hpp"
 #include "math/Matrix.hpp"
 #include "math/Vector.hpp"
@@ -63,6 +69,7 @@ extern std::unique_ptr<Scene> scene;
 extern std::unique_ptr<TextureManager> texman;
 extern std::unique_ptr<InputManager> inman;
 extern std::unique_ptr<Camera> camera;
+extern std::unique_ptr<World> world;
 
 struct Vertex {
     Vector position;
