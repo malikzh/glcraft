@@ -10,5 +10,7 @@ void main()
 {
     vec4 color = texture(tx0, TexCoord).rgba;
 
+    color.rgb *= 0.6f + (0.4f * brightness);
+
     FragColor = color;
 }

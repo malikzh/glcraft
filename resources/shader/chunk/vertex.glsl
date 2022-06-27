@@ -12,7 +12,7 @@ out float brightness;
 
 void main()
 {
-    brightness = 0.0f;//dot(normalize(sunPosition.xyz - aPos.xyz), );
+    brightness = max(0.0f, dot(normalize(sunPosition.xyz - aPos.xyz), aNormal.xyz));
 
     gl_Position = viewProjectionMatrix * worldMatrix * aPos;
     TexCoord = aTexCoord;
