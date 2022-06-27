@@ -18,6 +18,9 @@ public:
     HDC hDC = nullptr;
     HGLRC glContext = nullptr;
 
+    GLuint width;
+    GLuint height;
+
     Window(HINSTANCE hInstance, int nShowCmd);
     ~Window();
 

@@ -2,6 +2,22 @@
 
 World::World() {
     _shader = Shader::fromFile("resources/shader/chunk/vertex.glsl", "resources/shader/chunk/fragment.glsl");
+
+    glGenFramebuffers(1, &_fbo);
+    glGenTextures(1, &_depthMap);
+    glBindTexture(GL_TEXTURE_2D, _depthMap);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT,
+                 shadowMapWidth, shadowMapHeight, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+    glBindFramebuffer(GL_FRAMEBUFFER, _fbo);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, _depthMap, 0);
+    glDrawBuffer(GL_NONE);
+    glReadBuffer(GL_NONE);
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 void World::setBlock(int32_t x, int32_t y, int32_t z, BlockType type) {
@@ -44,10 +60,27 @@ void World::buffer() {
     }
 }
 
+void World::renderShadowMap() {
+    glViewport(0, 0, shadowMapWidth, shadowMapHeight);
+    glBindFramebuffer(GL_FRAMEBUFFER, _fbo);
+    glClear(GL_DEPTH_BUFFER_BIT);
+
+    auto pos = camera->position.copy();
+    auto look = camera->look.copy();
+    camera->position = lighting->lightVector;
+    render();
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    glViewport(0, 0, window->width, window->height);
+    camera->position = *pos;
+    camera->look = *look;
+}
 
 void World::render() {
+    glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    texman->bind();
 
     for (auto it = _chunks.begin(); it != _chunks.end(); it++) {
         Matrix matrix;

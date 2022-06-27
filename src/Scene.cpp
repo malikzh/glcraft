@@ -35,8 +35,8 @@ float x = 0.0f;
 
 void Scene::render() {
     glClearColor(0.467f, 0.659f, 1.0f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     camera->handleInput();
+    world->renderShadowMap();
     world->render();
     lighting->render();
 }

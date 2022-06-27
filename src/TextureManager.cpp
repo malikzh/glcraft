@@ -48,3 +48,7 @@ std::unique_ptr<TexCoord> TextureManager::getCoord(unsigned int id) {
         .top    = 1.0f - v * (float)y
     });
 }
+
+void TextureManager::bind() {
+    glBindTexture(GL_TEXTURE_2D, _id);
+}

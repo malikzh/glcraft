@@ -88,12 +88,15 @@ Window::Window(HINSTANCE hInstance, int nShowCmd) {
 
     if(GetClientRect(hWnd, &rect)) {
         glViewport(0, 0, rect.right, rect.bottom);
+        width = rect.right;
+        height = rect.bottom;
     } else {
         glViewport(0, 0, _defaultWidth, _defaultHeight);
+        width = _defaultWidth;
+        height = _defaultHeight;
     }
 
     ShowCursor(FALSE);
-
 }
 
 Window::~Window() {
@@ -163,6 +166,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
             UINT height = HIWORD(lParam);
 
             glViewport(0, 0, (GLint)width, (GLint)height);
+
+            if (window) {
+                window->width = width;
+                window->height = height;
+            }
 
             if (scene) {
                 scene->updateProjectionMatrix((float)width / (float)height);

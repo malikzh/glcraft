@@ -17,15 +17,21 @@ struct ChunkPairHasher {
 
 class World {
 public:
+    const GLuint shadowMapWidth = 1024;
+    const GLuint shadowMapHeight = 1024;
+
     World();
     void setBlock(int32_t x, int32_t y, int32_t z, BlockType type);
     void buildMesh();
     void buffer();
     void render();
+    void renderShadowMap();
 
 private:
     std::unordered_map<std::pair<int32_t, int32_t>, Chunk, ChunkPairHasher> _chunks;
     std::unique_ptr<Shader> _shader;
+    GLuint _depthMap;
+    GLuint _fbo;
 };
 
 

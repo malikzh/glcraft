@@ -16,6 +16,8 @@ public:
     TextureManager(); // Инициализирует текстуры
     ~TextureManager();
 
+    void bind();
+
     std::unique_ptr<TexCoord> getCoord(unsigned int id);
 };
 
