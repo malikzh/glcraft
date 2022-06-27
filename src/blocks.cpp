@@ -4,12 +4,12 @@ std::unordered_map<BlockType, BlockTexture> blockTexture = {
         {
             BlockType::GRASS,
             BlockTexture{
-                .front = 0,
-                .back = 0,
-                .left = 0,
-                .right = 0,
+                .front = 1,
+                .back = 1,
+                .left = 1,
+                .right = 1,
                 .top = 0,
-                .bottom = 0,
+                .bottom = 2,
             },
         },
 };
