@@ -46,6 +46,9 @@ void World::buffer() {
 
 
 void World::render() {
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     for (auto it = _chunks.begin(); it != _chunks.end(); it++) {
         Matrix matrix;
         _shader->use();

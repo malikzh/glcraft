@@ -115,5 +115,6 @@ std::unique_ptr<Mesh> cube_createTopMesh(const TexCoord& texCoords);
 std::unique_ptr<Mesh> cube_createBottomMesh(const TexCoord& texCoords);
 
 void terrain_generate_flat();
+void generate_tree(int32_t x, int32_t y, int32_t z);
 
 #endif //GLCRAFT_GLCRAFT_HPP

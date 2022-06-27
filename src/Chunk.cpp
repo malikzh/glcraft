@@ -8,7 +8,7 @@ void Chunk::setBlock(uint32_t x, uint32_t y, uint32_t z, BlockType type) {
         return;
     }
 
-    if (section >= _sections.size()) {
+    while (section >= _sections.size()) {
         if (type == BlockType::AIR) {
             return;
         }
