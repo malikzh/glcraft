@@ -2,12 +2,13 @@
 layout (location = 0) in vec4 aPos;
 layout (location = 1) in vec2 aTexCoord;
 
-uniform mat4 projectionMatrix;
+uniform mat4 worldMatrix;
+uniform mat4 viewProjectionMatrix;
 
 out vec2 TexCoord;
 
 void main()
 {
-    gl_Position = projectionMatrix * aPos;
+    gl_Position = viewProjectionMatrix * worldMatrix * aPos;
     TexCoord = aTexCoord;
 }

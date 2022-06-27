@@ -57,9 +57,13 @@ void World::render() {
         int32_t z = it->first.second;
 
         matrix.translate((float)(x * 16), 0.0f, (float)(z * 16));
-        camera->setPOV(&matrix);
-        matrix.apply(scene->projectionMatrix.get());
-        _shader->setValue("projectionMatrix", &matrix);
+
+        Matrix viewProjectionMatrix;
+        camera->setPOV(&viewProjectionMatrix);
+        viewProjectionMatrix.apply(scene->projectionMatrix.get());
+
+        _shader->setValue("viewProjectionMatrix", &viewProjectionMatrix);
+        _shader->setValue("worldMatrix", &matrix);
 
         it->second.bindVao();
         glDrawElements(GL_TRIANGLES, (GLint)it->second.indicesSize, GL_UNSIGNED_INT, 0);
