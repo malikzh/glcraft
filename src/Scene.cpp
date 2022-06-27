@@ -46,5 +46,5 @@ void Scene::updateProjectionMatrix(float aspect) {
 }
 
 std::unique_ptr<Matrix> Scene::createProjectionMatrix(float aspect) {
-    return Matrix::perspective(45.0f * (M_PI / 180.0f), aspect, 1.0f, 100.0f);
+    return Matrix::perspective(45.0f * (M_PI / 180.0f), aspect, 1.0f, 1000.0f);
 }

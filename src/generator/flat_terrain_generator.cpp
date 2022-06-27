@@ -3,8 +3,8 @@
 #include "../glcraft.hpp"
 
 void terrain_generate_flat() {
-    for (size_t i=0; i<200; ++i) {
-        for (size_t j=0; j<200; ++j) {
+    for (size_t i=0; i<150; ++i) {
+        for (size_t j=0; j<150; ++j) {
             int32_t y = (int32_t)( 10.0f + floor(3.0f*cosf((float)i/3.0f) + 3.0f*cosf((float)j/3.0f) ) );
 
 
