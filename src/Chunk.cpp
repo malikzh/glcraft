@@ -81,15 +81,13 @@ void Chunk::buffer() {
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * mesh->indices.size(), mesh->indices.data(), GL_STATIC_DRAW);
     glBindVertexArray(0);
 
-    _indicesSize = mesh->indices.size();
+    indicesSize = mesh->indices.size();
 }
 
-void Chunk::render() {
+void Chunk::bindVao() {
     if (!_vao) {
         return;
     }
 
     glBindVertexArray(_vao);
-    glDrawElements(GL_TRIANGLES, (GLint)_indicesSize, GL_UNSIGNED_INT, 0);
-    glBindVertexArray(0);
 }

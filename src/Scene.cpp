@@ -21,10 +21,7 @@ Scene::Scene() {
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
 
-    shader = Shader::fromFile("resources/shader/vertex.glsl", "resources/shader/fragment.glsl");
-
     // Initialize projection matrix
-
     projectionMatrix = createProjectionMatrix(1.0f);
 }
 
@@ -37,17 +34,9 @@ Scene::Scene() {
 float x = 0.0f;
 
 void Scene::render() {
-    Matrix matrix;
-
     glClearColor(0.467f, 0.659f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    shader->use();
     camera->handleInput();
-
-    camera->setPOV(&matrix);
-    matrix.apply(projectionMatrix.get());
-    shader->setValue("projectionMatrix", &matrix);
-
     world->render();
 }
 

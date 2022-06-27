@@ -1,5 +1,9 @@
 #include "glcraft.hpp"
 
+World::World() {
+    _shader = Shader::fromFile("resources/shader/vertex.glsl", "resources/shader/fragment.glsl");
+}
+
 void World::setBlock(int32_t x, int32_t y, int32_t z, BlockType type) {
     int32_t chunkX = x / Chunk::size;
     int32_t chunkY = z / Chunk::size;
@@ -26,18 +30,10 @@ void World::setBlock(int32_t x, int32_t y, int32_t z, BlockType type) {
 }
 
 void World::buildMesh() {
-    mesh = std::make_unique<Mesh>();
-
     for (auto it = _chunks.begin(); it != _chunks.end(); it++) {
-        int32_t x = it->first.first;
-        int32_t z = it->first.second;
-
         if (!it->second.mesh) {
             it->second.buildMesh();
         }
-
-        auto matrix = Matrix::translation((float)(x * 16), 0.0f, (float)(z * 16));
-        mesh->add(it->second.mesh.get(), matrix.get());
     }
 }
 
@@ -51,6 +47,19 @@ void World::buffer() {
 
 void World::render() {
     for (auto it = _chunks.begin(); it != _chunks.end(); it++) {
-        it->second.render();
+        Matrix matrix;
+        _shader->use();
+
+        int32_t x = it->first.first;
+        int32_t z = it->first.second;
+
+        matrix.translate((float)(x * 16), 0.0f, (float)(z * 16));
+        camera->setPOV(&matrix);
+        matrix.apply(scene->projectionMatrix.get());
+        _shader->setValue("projectionMatrix", &matrix);
+
+        it->second.bindVao();
+        glDrawElements(GL_TRIANGLES, (GLint)it->second.indicesSize, GL_UNSIGNED_INT, 0);
+        glBindVertexArray(0);
     }
 }
