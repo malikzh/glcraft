@@ -48,3 +48,13 @@ size_t Mesh::getVerticesArraySize() const {
 size_t Mesh::getTexCoordArraySize() const {
     return vertices.size() * 2;
 }
+
+
+void Mesh::rotateY(float angle) {
+    auto m = Matrix::rotationY(angle);
+
+    for (Vertex& vertex : vertices) {
+        vertex.position.apply(m.get());
+        vertex.normal.apply(m.get());
+    }
+}

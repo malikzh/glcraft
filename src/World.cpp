@@ -1,7 +1,7 @@
 #include "glcraft.hpp"
 
 World::World() {
-    _shader = Shader::fromFile("resources/shader/vertex.glsl", "resources/shader/fragment.glsl");
+    _shader = Shader::fromFile("resources/shader/chunk/vertex.glsl", "resources/shader/chunk/fragment.glsl");
 }
 
 void World::setBlock(int32_t x, int32_t y, int32_t z, BlockType type) {

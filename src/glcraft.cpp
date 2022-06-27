@@ -6,6 +6,7 @@ std::unique_ptr<TextureManager> texman = nullptr;
 std::unique_ptr<InputManager> inman = nullptr;
 std::unique_ptr<Camera> camera = nullptr;
 std::unique_ptr<World> world = nullptr;
+std::unique_ptr<Lighting> lighting = nullptr;
 
 int glcraft_boot(HINSTANCE hInstance, int nShowCmd) noexcept {
     try {
@@ -16,6 +17,7 @@ int glcraft_boot(HINSTANCE hInstance, int nShowCmd) noexcept {
         texman = std::make_unique<TextureManager>();
         camera = std::make_unique<Camera>();
         world = std::make_unique<World>();
+        lighting = std::make_unique<Lighting>();
         scene = std::make_unique<Scene>();
 
         glcraft_mainloop();
