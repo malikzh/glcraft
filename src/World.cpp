@@ -64,6 +64,7 @@ void World::render() {
 
         _shader->setValue("viewProjectionMatrix", &viewProjectionMatrix);
         _shader->setValue("worldMatrix", &matrix);
+        _shader->setValue("sunPosition", &lighting->lightVector);
 
         it->second.bindVao();
         glDrawElements(GL_TRIANGLES, (GLint)it->second.indicesSize, GL_UNSIGNED_INT, 0);

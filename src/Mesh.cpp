@@ -58,3 +58,26 @@ void Mesh::rotateY(float angle) {
         vertex.normal.apply(m.get());
     }
 }
+
+
+std::unique_ptr<float[]> Mesh::getNormalsArray() const {
+    auto arr = std::make_unique<float[]>(getNormalsArraySize());
+
+    if (!arr) {
+        throw std::exception("Allocation failure");
+    }
+
+    size_t i = 0;
+    for (const Vertex& v : vertices) {
+        arr[i++] = v.normal.x;
+        arr[i++] = v.normal.y;
+        arr[i++] = v.normal.z;
+        arr[i++] = v.normal.w;
+    }
+
+    return arr;
+}
+
+size_t Mesh::getNormalsArraySize() const {
+    return vertices.size() * 4;
+}

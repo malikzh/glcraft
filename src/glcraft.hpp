@@ -98,6 +98,8 @@ struct Mesh {
     size_t getVerticesArraySize() const;
     size_t getTexCoordArraySize() const;
     void rotateY(float angle);
+    std::unique_ptr<float[]> getNormalsArray() const;
+    size_t getNormalsArraySize() const;
 };
 
 struct TexCoord {

@@ -23,6 +23,7 @@ private:
     GLuint _vao = 0;
     GLuint _vbo = 0;
     GLuint _vbo2 = 0;
+    GLuint _vbo3 = 0;
     GLuint _ebo = 0;
 };
 

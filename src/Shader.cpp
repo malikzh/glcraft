@@ -103,3 +103,8 @@ std::unique_ptr<Shader> Shader::fromFile(const std::string& vertexShaderFile, co
 
     return std::make_unique<Shader>(vertexShader, fragmentShader);
 }
+
+
+void Shader::setValue(const std::string &name, const Vector* vector) const {
+    glUniform4f(glGetUniformLocation(_program, name.c_str()), vector->x, vector->y, vector->z, vector->w);
+}

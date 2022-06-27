@@ -72,6 +72,18 @@ void Chunk::buffer() {
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(1);
 
+    // normals
+    auto normals = mesh->getNormalsArray();
+
+    if (!_vbo3) {
+        glGenBuffers(1, &_vbo3);
+    }
+
+    glBindBuffer(GL_ARRAY_BUFFER, _vbo3);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * mesh->getNormalsArraySize(), normals.get(), GL_STATIC_DRAW);
+    glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(2);
+
     // Indices
     if (!_ebo) {
         glGenBuffers(1, &_ebo);
