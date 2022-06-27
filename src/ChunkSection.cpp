@@ -52,3 +52,7 @@ std::unique_ptr<uint32_t[]> ChunkSection::_indexToPosition(size_t index) {
 
     return pos;
 }
+
+bool ChunkSection::empty() {
+    return _blocks.empty();
+}

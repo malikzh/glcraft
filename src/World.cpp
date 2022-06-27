@@ -14,12 +14,12 @@ void World::setBlock(int32_t x, int32_t y, int32_t z, BlockType type) {
     z %= Chunk::size;
 
     if (x < 0) {
-        x = 16 + x;
+        x = -x;
     }
 
 
     if (z < 0) {
-        z = 16 + z;
+        z = -z;
     }
 
     _chunks[pos].setBlock(x, y, z, type);
@@ -36,8 +36,8 @@ void World::buildMesh() {
             it->second.buildMesh();
         }
 
-        auto matrix = Matrix::translation((float)x, 0.0f, (float)z);
-        mesh->add(it->second.mesh.get());
+        auto matrix = Matrix::translation((float)(x * 16), 0.0f, (float)(z * 16));
+        mesh->add(it->second.mesh.get(), matrix.get());
     }
 }
 

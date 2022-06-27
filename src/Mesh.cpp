@@ -8,7 +8,7 @@ void Mesh::add(Mesh* mesh, Matrix* matrix) {
             vertex.position.apply(matrix);
         }
 
-        vertices.emplace_back(vertex);
+        vertices.push_back(vertex);
     }
 
     for (GLuint index : mesh->indices) {

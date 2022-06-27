@@ -14,6 +14,7 @@ public:
 
     void setBlock(uint32_t x, uint32_t y, uint32_t z, BlockType type);
     void buildMesh();
+    bool empty();
 
 private:
     std::unordered_map<std::size_t, BlockType> _blocks;

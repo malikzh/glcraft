@@ -27,6 +27,10 @@ void Chunk::buildMesh() {
     size_t y = 0;
 
     for (ChunkSection& section : _sections) {
+        if (section.empty()) {
+            continue;
+        }
+
         if (!section.mesh) {
             section.buildMesh();
         }
