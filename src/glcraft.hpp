@@ -18,7 +18,6 @@
 #include <windows.h>
 #include <gl/glew.h>
 #include "../dependencies/stb_image.h"
-#include "../dependencies/linmath.h"
 
 // Block types
 enum class BlockType : uint8_t {
