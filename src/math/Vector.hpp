@@ -29,6 +29,7 @@ public:
     void pack2(std::vector<float>* vector) const;
     const Vector* apply(const Matrix* m);
     const Vector* set(const Vector* v);
+    const Vector* reset();
 };
 
 

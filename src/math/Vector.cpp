@@ -86,3 +86,13 @@ const Vector* Vector::set(const Vector* v) {
 
     return this;
 }
+
+
+const Vector* Vector::reset() {
+    x = 0.0f;
+    y = 0.0f;
+    z = 0.0f;
+    w = 1.0f;
+
+    return this;
+}

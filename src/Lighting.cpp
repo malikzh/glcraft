@@ -66,6 +66,9 @@ void Lighting::render() {
     // Ставим солнце в положении согласно времени
     matrix.rotateX(((float)time / 30000.0f) * (float)M_PI);
 
+    lightVector.reset();
+    lightVector.apply(&matrix);
+
     _shader->use();
 
     camera->setPOV(&matrix);

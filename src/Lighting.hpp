@@ -18,6 +18,7 @@ private:
 
 public:
     GLuint time = 0;
+    Vector lightVector;
 
     Lighting();
     void render();
