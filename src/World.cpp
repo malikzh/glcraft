@@ -93,7 +93,7 @@ void World::render() {
 
         Matrix viewProjectionMatrix;
         camera->setPOV(&viewProjectionMatrix);
-        viewProjectionMatrix.apply(scene->projectionMatrix.get());
+        viewProjectionMatrix.apply(scene->inversedProjectionMatrix.get());
 
         _shader->setValue("viewProjectionMatrix", &viewProjectionMatrix);
         _shader->setValue("worldMatrix", &matrix);

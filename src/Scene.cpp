@@ -2,16 +2,6 @@
 #include <cmath>
 #include "glcraft.hpp"
 
-GLfloat vertices[] = {
-        1.0f, -1.0f, 0.0f,
-        0.0f, 1.0f, 0.0f,
-        -1.0f, -1.0f, 0.0f,
-};
-
-unsigned int VBO;
-unsigned int VBO2;
-unsigned int EBO;
-
 /// Инициализация сцены
 Scene::Scene() {
     terrain_generate_flat();
@@ -23,6 +13,7 @@ Scene::Scene() {
 
     // Initialize projection matrix
     projectionMatrix = createProjectionMatrix(1.0f);
+    inversedProjectionMatrix = createInversedProjectionMatrix(1.0f);
 }
 
 /**
@@ -44,8 +35,13 @@ void Scene::render() {
 
 void Scene::updateProjectionMatrix(float aspect) {
     projectionMatrix = createProjectionMatrix(aspect);
+    inversedProjectionMatrix = createInversedProjectionMatrix(aspect);
 }
 
 std::unique_ptr<Matrix> Scene::createProjectionMatrix(float aspect) {
     return Matrix::perspective(45.0f * (M_PI / 180.0f), aspect, 1.0f, 1000.0f);
+}
+
+std::unique_ptr<Matrix> Scene::createInversedProjectionMatrix(float aspect) {
+    return Matrix::inversedPerspective(45.0f * (M_PI / 180.0f), aspect, 0.5f, 1000.0f);
 }

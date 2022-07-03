@@ -35,6 +35,7 @@ public:
 
     // Проекция
     static std::unique_ptr<Matrix> perspective(float fovy, float aspect, float n, float f);
+    static std::unique_ptr<Matrix> inversedPerspective(float fovy, float aspect, float n, float f);
 
     // Трансформации
     const Matrix* translate(float x, float y, float z);

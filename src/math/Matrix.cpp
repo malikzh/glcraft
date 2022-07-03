@@ -79,6 +79,24 @@ std::unique_ptr<Matrix> Matrix::perspective(float fovy, float aspect, float n, f
     return m;
 }
 
+std::unique_ptr<Matrix> Matrix::inversedPerspective(float fovy, float aspect, float n, float f) {
+    auto m = perspective(fovy, aspect, n, f);
+
+    float a = m->data[0];
+    float b = m->data[5];
+    float c = m->data[10];
+    float d = m->data[14];
+    float e = m->data[11];
+
+    m->data[0] = 1.0f / a;
+    m->data[5] = 1.0f / b;
+    m->data[11] = 1.0f / d;
+    m->data[14] = 1.0f / e;
+    m->data[15] = -c / (d*e);
+
+    return m;
+}
+
 
 const Matrix* Matrix::translate(float x, float y, float z) {
     apply(Matrix::translation(x, y, z).get());
