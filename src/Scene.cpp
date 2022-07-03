@@ -43,5 +43,5 @@ std::unique_ptr<Matrix> Scene::createProjectionMatrix(float aspect) {
 }
 
 std::unique_ptr<Matrix> Scene::createInversedProjectionMatrix(float aspect) {
-    return Matrix::inversedPerspective(45.0f * (M_PI / 180.0f), aspect, 0.5f, 1000.0f);
+    return Matrix::inversedPerspective(120.0f * (M_PI / 180.0f), aspect, 0.01f, 1.0f);
 }
