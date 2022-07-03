@@ -24,8 +24,11 @@ void Camera::setPOV(Matrix* matrix) {
 
 
 void Camera::handleInput() {
-    rotateY(-inman->mouseDX / 30.0f);
-    rotateX(-inman->mouseDY / 30.0f);
+    rotateY(-inman->mouseDX * 0.001f);
+    rotateX(-inman->mouseDY * 0.001f);
+
+    inman->mouseDX -= inman->mouseDX * 0.02f;
+    inman->mouseDY -= inman->mouseDY * 0.02f;
 
     if (look.x < -M_PI_2) {
         look.x = -M_PI_2;

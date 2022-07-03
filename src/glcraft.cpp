@@ -48,8 +48,8 @@ void glcraft_mainloop() {
         // Update cursor
         POINT mouse = window->getCursorDeviation();
 
-        inman->mouseDX = (float)mouse.x;
-        inman->mouseDY = (float)mouse.y;
+        inman->mouseDX += (float)mouse.x;
+        inman->mouseDY += (float)mouse.y;
 
         scene->render();
         window->swapBuffers();
