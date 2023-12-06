@@ -3,7 +3,7 @@
 
 Matrix::Matrix(const std::initializer_list<float>& values) {
     if (values.size() != 16) {
-        throw std::exception("Matrix initializer list size must be 16");
+        throw std::runtime_error("Matrix initializer list size must be 16");
     }
 
     size_t i =0;

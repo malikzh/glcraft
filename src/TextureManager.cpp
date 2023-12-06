@@ -1,18 +1,20 @@
 #include "glcraft.hpp"
+#include <algorithm>
 
 TextureManager::TextureManager() {
     int nrChannels;
     unsigned char *data = stbi_load("resources/texture.png", &_width, &_height, &nrChannels, 4);
 
     if (!data) {
-        throw std::exception("Cannot load texture");
+        throw std::runtime_error("Cannot load texture");
     }
 
     if (_width % BLOCK_TEXTURE_WIDTH != 0 || _height % BLOCK_TEXTURE_HEIGHT != 0) {
-        throw std::exception("Texture size must be multiple by 16");
+        throw std::runtime_error("Texture size must be multiple by 16");
     }
 
     glGenTextures(1, &_id);
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
     glBindTexture(GL_TEXTURE_2D, _id);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _width, _height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
@@ -32,8 +34,8 @@ std::unique_ptr<TexCoord> TextureManager::getCoord(unsigned int id) {
     unsigned int rows = _height / BLOCK_TEXTURE_HEIGHT;
 
     unsigned int maxId =  rows * cols - 1;
-    id = max(id, 0);
-    id = min(id, maxId);
+    id = std::max(id, 0u);
+    id = std::min(id, maxId);
 
     unsigned int x = id % cols;
     unsigned int y = id / cols;

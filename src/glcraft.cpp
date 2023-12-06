@@ -1,4 +1,6 @@
 #include "glcraft.hpp"
+#include <GLFW/glfw3.h>
+#include <iostream>
 
 std::unique_ptr<Window> window = nullptr;
 std::unique_ptr<Scene> scene = nullptr;
@@ -8,12 +10,12 @@ std::unique_ptr<Camera> camera = nullptr;
 std::unique_ptr<World> world = nullptr;
 std::unique_ptr<Lighting> lighting = nullptr;
 
-int glcraft_boot(HINSTANCE hInstance, int nShowCmd) noexcept {
+int glcraft_boot(int argc, char** argv) {
     try {
         stbi_set_flip_vertically_on_load(true);
 
         inman = std::make_unique<InputManager>();
-        window = std::make_unique<Window>(hInstance, nShowCmd);
+        window = std::make_unique<Window>(640, 480);
         texman = std::make_unique<TextureManager>();
         camera = std::make_unique<Camera>();
         world = std::make_unique<World>();
@@ -29,34 +31,25 @@ int glcraft_boot(HINSTANCE hInstance, int nShowCmd) noexcept {
 }
 
 void glcraft_mainloop() {
-    MSG msg;
 
     bool active = true;
 
-    while(active) {
-        window->moveCursorToCenter();
-
-        while(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
-            if (msg.message == WM_QUIT) {
-                active = false;
-            }
-
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
-        }
+    while(!glfwWindowShouldClose(window->window)) {
+        //window->moveCursorToCenter();
 
         // Update cursor
-        POINT mouse = window->getCursorDeviation();
+        //POINT mouse = window->getCursorDeviation();
 
-        inman->mouseDX += (float)mouse.x;
-        inman->mouseDY += (float)mouse.y;
+//        inman->mouseDX += (float)mouse.x;
+//        inman->mouseDY += (float)mouse.y;
 
         scene->render();
         window->swapBuffers();
+        glfwPollEvents();
     }
 }
 
 
 void glcraft_error(const char* message) {
-    MessageBoxA( NULL, message, "GLCraft error", MB_ICONERROR | MB_OK);
+    std::cout << "GLCraft error: " <<  message << std::endl;
 }

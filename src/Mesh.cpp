@@ -64,7 +64,7 @@ std::unique_ptr<float[]> Mesh::getNormalsArray() const {
     auto arr = std::make_unique<float[]>(getNormalsArraySize());
 
     if (!arr) {
-        throw std::exception("Allocation failure");
+        throw std::runtime_error("Allocation failure");
     }
 
     size_t i = 0;

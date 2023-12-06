@@ -15,8 +15,12 @@
 #include <unordered_map>
 #include <functional>
 
+#ifdef _WIN32
 #include <windows.h>
-#include <gl/glew.h>
+#endif
+
+#define GLFW_INCLUDE_GLCOREARB
+#include <GLFW/glfw3.h>
 #include "../dependencies/stb_image.h"
 
 // Block types
@@ -109,7 +113,7 @@ struct TexCoord {
     GLfloat top;
 };
 
-int glcraft_boot(HINSTANCE hInstance, int nShowCmd) noexcept;
+int glcraft_boot(int argc, char** argv);
 void glcraft_mainloop();
 void glcraft_error(const char* message);
 

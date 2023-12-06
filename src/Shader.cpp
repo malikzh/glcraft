@@ -9,7 +9,7 @@ Shader::Shader(const std::string& vertexShaderSource, const std::string& fragmen
     _program = glCreateProgram();
 
     if (_program == GL_FALSE) {
-        throw std::exception("Can't create shader program");
+        throw std::runtime_error("Can't create shader program");
     }
 
     glAttachShader(_program, vertexShader);
@@ -29,7 +29,7 @@ Shader::Shader(const std::string& vertexShaderSource, const std::string& fragmen
         auto message = std::make_unique<GLchar>(log_length);
         glGetProgramInfoLog(_program, log_length, NULL, message.get());
 
-        throw std::exception(message.get());
+        throw std::runtime_error(message.get());
     }
 
     glDeleteShader(vertexShader);
@@ -40,7 +40,7 @@ GLuint Shader::_buildShader(GLenum shaderType, const char* source) noexcept(fals
     GLuint shader = glCreateShader(shaderType);
 
     if (!shader) {
-        throw std::exception(shaderType == GL_VERTEX_SHADER ? "Can't create vertex shader" : "Can't create fragment shader");
+        throw std::runtime_error(shaderType == GL_VERTEX_SHADER ? "Can't create vertex shader" : "Can't create fragment shader");
     }
 
     glShaderSource(shader, 1, &source, NULL);
@@ -58,7 +58,7 @@ GLuint Shader::_buildShader(GLenum shaderType, const char* source) noexcept(fals
         auto message = std::make_unique<GLchar>(log_length);
         glGetShaderInfoLog(shader, log_length, NULL, message.get());
 
-        throw std::exception(message.get());
+        throw std::runtime_error(message.get());
     }
 
     return shader;
