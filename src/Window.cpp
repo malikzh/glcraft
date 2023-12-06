@@ -73,6 +73,12 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             case GLFW_KEY_ESCAPE:
                 exit(0);
                 break;
+            case GLFW_KEY_I:
+                glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+                break;
+            case GLFW_KEY_J:
+                glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+                break;
         }
     } else if (action == GLFW_RELEASE) {
         switch(key) {
