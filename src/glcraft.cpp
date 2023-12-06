@@ -10,8 +10,23 @@ std::unique_ptr<Camera> camera = nullptr;
 std::unique_ptr<World> world = nullptr;
 std::unique_ptr<Lighting> lighting = nullptr;
 std::unique_ptr<Player> player = nullptr;
+std::unique_ptr<Network> network = nullptr;
 
 int glcraft_boot(int argc, char** argv) {
+
+    if (argc < 2) {
+        std::cout << "You need pass arguments to the command" << std::endl;
+        exit(0);
+    }
+
+    if (strcmp(argv[0], "server") == 0 && argc != 3 || strcmp(argv[0], "client") == 0 && argc != 4 ) {
+        std::cout << "Invalid command given" << std::endl;
+        exit(0);
+    }
+
+    int16_t port = (strcmp(argv[0], "server") == 0 ? atoi(argv[1]) : atoi(argv[2]));
+
+
     try {
         stbi_set_flip_vertically_on_load(true);
 
@@ -23,6 +38,15 @@ int glcraft_boot(int argc, char** argv) {
         lighting = std::make_unique<Lighting>();
         player = std::make_unique<Player>();
         scene = std::make_unique<Scene>();
+        network = std::make_unique<Network>();
+
+        if (strcmp(argv[1], "server") == 0) {
+            std::cout << "Running server on port " << port << std::endl;
+            network->start_server(port);
+        } else {
+            const char* ip = argv[3];
+            network->start_client(ip, port);
+        }
 
         glcraft_mainloop();
         return 0;

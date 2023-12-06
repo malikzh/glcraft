@@ -4,7 +4,7 @@
 
 #ifndef GLCRAFT_PLAYER_HPP
 #define GLCRAFT_PLAYER_HPP
-
+#include <mutex>
 
 class Player {
 private:
@@ -14,11 +14,14 @@ private:
     GLuint _vbo2 = 0;
     GLuint _ebo = 0;
     size_t indicesSize = 0;
-    Vector position = Vector();
 
     std::unique_ptr<Shader> _shader;
 
 public:
+    Vector position = Vector();
+    Vector look = Vector();
+    std::mutex mutex;
+
     Player();
     void render();
 };

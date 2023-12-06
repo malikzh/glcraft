@@ -79,6 +79,7 @@ struct BlockTexture {
 #include "Camera.hpp"
 #include "Lighting.hpp"
 #include "Player.hpp"
+#include "Network.hpp"
 
 extern std::unique_ptr<Window> window;
 extern std::unique_ptr<Scene> scene;
@@ -89,6 +90,7 @@ extern std::unique_ptr<World> world;
 extern std::unordered_map<BlockType, BlockTexture> blockTexture;
 extern std::unique_ptr<Lighting> lighting;
 extern std::unique_ptr<Player> player;
+extern std::unique_ptr<Network> network;
 
 struct Vertex {
     Vector position;

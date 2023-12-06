@@ -61,7 +61,7 @@ Player::Player() {
 }
 
 void Player::render() {
-
+    player->mutex.lock();
     Matrix matrix;
 
     texman->bind();
@@ -70,6 +70,8 @@ void Player::render() {
 
     //matrix.scale(2.0f, 2.0f, 2.0f);
     matrix.translate(position.x, position.y, position.z);
+    matrix.rotateX(look.x);
+    matrix.rotateY(look.y);
 
     camera->setPOV(&matrix);
     matrix.apply(scene->projectionMatrix.get());
@@ -78,4 +80,5 @@ void Player::render() {
     glBindVertexArray(_vao);
     glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
+    player->mutex.unlock();
 }
