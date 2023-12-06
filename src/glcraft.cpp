@@ -9,6 +9,7 @@ std::unique_ptr<InputManager> inman = nullptr;
 std::unique_ptr<Camera> camera = nullptr;
 std::unique_ptr<World> world = nullptr;
 std::unique_ptr<Lighting> lighting = nullptr;
+std::unique_ptr<Player> player = nullptr;
 
 int glcraft_boot(int argc, char** argv) {
     try {
@@ -20,6 +21,7 @@ int glcraft_boot(int argc, char** argv) {
         camera = std::make_unique<Camera>();
         world = std::make_unique<World>();
         lighting = std::make_unique<Lighting>();
+        player = std::make_unique<Player>();
         scene = std::make_unique<Scene>();
 
         glcraft_mainloop();

@@ -29,6 +29,7 @@ void Scene::render() {
     camera->handleInput();
     world->renderShadowMap();
     world->render();
+    player->render();
     lighting->render();
 }
 

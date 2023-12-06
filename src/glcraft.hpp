@@ -52,6 +52,7 @@ struct Vertex;
 struct Mesh;
 struct TexCoord;
 class Lighting;
+class Player;
 
 // Util
 size_t hash_combine( size_t lhs, size_t rhs );
@@ -77,6 +78,7 @@ struct BlockTexture {
 #include "InputManager.hpp"
 #include "Camera.hpp"
 #include "Lighting.hpp"
+#include "Player.hpp"
 
 extern std::unique_ptr<Window> window;
 extern std::unique_ptr<Scene> scene;
@@ -86,6 +88,7 @@ extern std::unique_ptr<Camera> camera;
 extern std::unique_ptr<World> world;
 extern std::unordered_map<BlockType, BlockTexture> blockTexture;
 extern std::unique_ptr<Lighting> lighting;
+extern std::unique_ptr<Player> player;
 
 struct Vertex {
     Vector position;
