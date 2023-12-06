@@ -69,9 +69,9 @@ void Player::render() {
     _shader->use();
 
     //matrix.scale(2.0f, 2.0f, 2.0f);
+    matrix.rotateX(-look.x);
+    matrix.rotateY(-look.y);
     matrix.translate(position.x, position.y, position.z);
-    matrix.rotateX(look.x);
-    matrix.rotateY(look.y);
 
     camera->setPOV(&matrix);
     matrix.apply(scene->projectionMatrix.get());

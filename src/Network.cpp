@@ -12,6 +12,7 @@
 #include <netinet/in.h>
 #include <netdb.h>
 #include <thread>
+#include <iostream>
 
 void server_thread(Network* net) {
     struct sockaddr_in servaddr;
@@ -62,6 +63,8 @@ void server_thread(Network* net) {
         player->look.x = d->rx;
         player->look.y = d->ry;
         player->mutex.unlock();
+
+        //std::cout << "from client: " << d->x << ", " <<  d->y << ", " <<  d->z << ", " << std::endl;
 
         // Send current position to client
         Datagram my;
@@ -128,6 +131,9 @@ void client_thread(Network* net) {
             player->look.x = d->rx;
             player->look.y = d->ry;
             player->mutex.unlock();
+
+            //std::cout << "from server: " << d->x << ", " <<  d->y << ", " <<  d->z << ", " << std::endl;
+            break;
         }
     }
 }
