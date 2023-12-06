@@ -8,6 +8,8 @@
 
 class InputManager {
 public:
+    float mouseX = 0.0f;
+    float mouseY = 0.0f;
     float mouseDX = 0.0f;
     float mouseDY = 0.0f;
 

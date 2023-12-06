@@ -3,9 +3,15 @@
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
-Window::Window(GLuint _width, GLuint _height) {
-    width = _width;
-    height = _height;
+void cursor_position_callback(GLFWwindow* window, double xpos, double ypos) {
+    inman->mouseDX += (xpos - inman->mouseX) * 0.1;
+    inman->mouseX = xpos;
+
+    inman->mouseDY += (ypos - inman->mouseY) * 0.1;
+    inman->mouseY = ypos;
+}
+
+Window::Window() {
 
     if (!glfwInit ())
     {
@@ -30,6 +36,8 @@ Window::Window(GLuint _width, GLuint _height) {
     }
     glfwMakeContextCurrent (window);
     glfwSetKeyCallback(window, key_callback);
+    glfwSetCursorPosCallback(window, cursor_position_callback);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 
 Window::~Window() {
@@ -62,6 +70,9 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             case GLFW_KEY_LEFT_SHIFT:
                 inman->shiftKeyPressed = true;
                 break;
+            case GLFW_KEY_ESCAPE:
+                exit(0);
+                break;
         }
     } else if (action == GLFW_RELEASE) {
         switch(key) {
@@ -87,94 +98,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     }
 }
 
-//LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
-//    switch(msg) {
-//        case WM_CLOSE:
-//            PostQuitMessage(0);
-//            break;
-//        case WM_KEYDOWN:
-//            if (wParam == VK_ESCAPE) {
-//                PostQuitMessage(0);
-//                return 0;
-//            } else if (wParam == 'W') {
-//                inman->forwardKeyPressed = true;
-//            } else if (wParam == 'S') {
-//                inman->backwardKeyPressed = true;
-//            } else if (wParam == 'A') {
-//                inman->leftKeyPressed = true;
-//            } else if (wParam == 'D') {
-//                inman->rightKeyPressed = true;
-//            } else if (wParam == VK_SPACE) {
-//                inman->spaceKeyPressed = true;
-//            } else if (wParam == VK_F11) {
-//                ShowWindow(hWnd, SW_SHOWMAXIMIZED);
-//                UpdateWindow(hWnd);
-//            } else if (wParam == VK_SHIFT) {
-//                inman->shiftKeyPressed = true;
-//            }
-//            break;
-//        case WM_KEYUP:
-//            if (wParam == 'W') {
-//                inman->forwardKeyPressed = false;
-//            } else if (wParam == 'S') {
-//                inman->backwardKeyPressed = false;
-//            } else if (wParam == 'A') {
-//                inman->leftKeyPressed = false;
-//            } else if (wParam == 'D') {
-//                inman->rightKeyPressed = false;
-//            } else if (wParam == VK_SPACE) {
-//                inman->spaceKeyPressed = false;
-//            } else if (wParam == VK_SHIFT) {
-//                inman->shiftKeyPressed = false;
-//            }
-//            break;
-//        case WM_SIZE:
-//        {
-//            UINT width = LOWORD(lParam);
-//            UINT height = HIWORD(lParam);
-//
-//            glViewport(0, 0, (GLint)width, (GLint)height);
-//
-//            if (window) {
-//                window->width = width;
-//                window->height = height;
-//            }
-//
-//            if (scene) {
-//                scene->updateProjectionMatrix((float)width / (float)height);
-//            }
-//
-//        }
-//            break;
-//        default:
-//            return DefWindowProc(hWnd, msg, wParam, lParam);
-//    }
-//
-//    return 0;
-//}
-
-//POINT Window::_getCursorCenterPoint() const {
-//    RECT rect;
-//    POINT center;
-//
-//    center.x = 0;
-//    center.y = 0;
-//
-//    if (GetClientRect(hWnd, &rect)) {
-//        center.x = rect.right / 2L;
-//        center.y = rect.bottom / 2L;
-//
-//        ClientToScreen(hWnd, &center);
-//    }
-//
-//    return center;
-//}
-//
-//void Window::moveCursorToCenter() const {
-//    POINT point = _getCursorCenterPoint();
-//    SetCursorPos(point.x, point.y);
-//}
-//
 //POINT Window::getCursorDeviation() const {
 //    POINT cursor;
 //

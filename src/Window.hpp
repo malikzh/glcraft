@@ -3,18 +3,25 @@
 
 #include <GLFW/glfw3.h>
 
-class Window {
+struct Point {
+    double x;
+    double y;
+};
 
+class Window {
 public:
     GLFWwindow* window;
 
-    GLuint width = 640;
-    GLuint height = 480;
-    Window(GLuint _width, GLuint _height);
+    GLuint width = 1024;
+    GLuint height = 768;
+    Window();
     ~Window();
 
     void swapBuffers();
     void moveCursorToCenter() const;
+
+private:
+    std::unique_ptr<Point> _getCursorCenterPoint() const;
 };
 
 
