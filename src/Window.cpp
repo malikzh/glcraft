@@ -103,19 +103,3 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         }
     }
 }
-
-//POINT Window::getCursorDeviation() const {
-//    POINT cursor;
-//
-//    cursor.x = 0;
-//    cursor.y = 0;
-//
-//    if (GetCursorPos(&cursor)) {
-//        POINT center = _getCursorCenterPoint();
-//
-//        cursor.x -= center.x;
-//        cursor.y -= center.y;
-//    }
-//
-//    return cursor;
-//}
