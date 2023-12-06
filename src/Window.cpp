@@ -20,7 +20,7 @@ Window::Window(GLuint _width, GLuint _height) {
     glfwWindowHint (GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 #endif
 
-    window = glfwCreateWindow (640, 480, "ComputerNetworksCraft", NULL, NULL);
+    window = glfwCreateWindow (width, height, "ComputerNetworksCraft", NULL, NULL);
 
     if (!window)
     {
@@ -29,6 +29,7 @@ Window::Window(GLuint _width, GLuint _height) {
         exit(1);
     }
     glfwMakeContextCurrent (window);
+    glfwSetKeyCallback(window, key_callback);
 }
 
 Window::~Window() {
@@ -42,7 +43,47 @@ void Window::swapBuffers() {
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
     if (action == GLFW_PRESS || action == GLFW_REPEAT) {
-
+        switch (key) {
+            case GLFW_KEY_W:
+                inman->forwardKeyPressed = true;
+                break;
+            case GLFW_KEY_S:
+                inman->backwardKeyPressed = true;
+                break;
+            case GLFW_KEY_A:
+                inman->leftKeyPressed = true;
+                break;
+            case GLFW_KEY_D:
+                inman->rightKeyPressed = true;
+                break;
+            case GLFW_KEY_SPACE:
+                inman->spaceKeyPressed = true;
+                break;
+            case GLFW_KEY_LEFT_SHIFT:
+                inman->shiftKeyPressed = true;
+                break;
+        }
+    } else if (action == GLFW_RELEASE) {
+        switch(key) {
+            case GLFW_KEY_W:
+                inman->forwardKeyPressed = false;
+                break;
+            case GLFW_KEY_S:
+                inman->backwardKeyPressed = false;
+                break;
+            case GLFW_KEY_A:
+                inman->leftKeyPressed = false;
+                break;
+            case GLFW_KEY_D:
+                inman->rightKeyPressed = false;
+                break;
+            case GLFW_KEY_SPACE:
+                inman->spaceKeyPressed = false;
+                break;
+            case GLFW_KEY_LEFT_SHIFT:
+                inman->shiftKeyPressed = false;
+                break;
+        }
     }
 }
 

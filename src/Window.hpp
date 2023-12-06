@@ -8,8 +8,8 @@ class Window {
 public:
     GLFWwindow* window;
 
-    GLuint width;
-    GLuint height;
+    GLuint width = 640;
+    GLuint height = 480;
     Window(GLuint _width, GLuint _height);
     ~Window();
 

@@ -31,10 +31,9 @@ int glcraft_boot(int argc, char** argv) {
 }
 
 void glcraft_mainloop() {
-
-    bool active = true;
-
     while(!glfwWindowShouldClose(window->window)) {
+        glfwGetWindowSize(window->window, (int*)&window->width, (int*)&window->height);
+        scene->updateProjectionMatrix((float)window->width / (float)window->height);
         //window->moveCursorToCenter();
 
         // Update cursor

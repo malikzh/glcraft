@@ -70,7 +70,7 @@ void World::renderShadowMap() {
     camera->position = lighting->lightVector;
     render();
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    glViewport(0, 0, window->width, window->height);
+    glViewport(0, 0, window->width * 2, window->height * 2);
     camera->position = *pos;
     camera->look = *look;
 }
