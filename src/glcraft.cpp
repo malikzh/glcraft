@@ -31,7 +31,7 @@ int glcraft_boot(int argc, char** argv) {
         stbi_set_flip_vertically_on_load(true);
 
         inman = std::make_unique<InputManager>();
-        window = std::make_unique<Window>();
+        window = std::make_unique<Window>(argc != 4);
         texman = std::make_unique<TextureManager>();
         camera = std::make_unique<Camera>();
         world = std::make_unique<World>();

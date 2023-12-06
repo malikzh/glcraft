@@ -12,9 +12,9 @@ class Window {
 public:
     GLFWwindow* window;
 
-    GLuint width = 1024;
-    GLuint height = 768;
-    Window();
+    GLuint width = 800;
+    GLuint height = 600;
+    Window(bool isServer);
     ~Window();
 
     void swapBuffers();

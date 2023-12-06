@@ -11,7 +11,7 @@ void cursor_position_callback(GLFWwindow* window, double xpos, double ypos) {
     inman->mouseY = ypos;
 }
 
-Window::Window() {
+Window::Window(bool isServer) {
 
     if (!glfwInit ())
     {
@@ -26,7 +26,7 @@ Window::Window() {
     glfwWindowHint (GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 #endif
 
-    window = glfwCreateWindow (width, height, "ComputerNetworksCraft", NULL, NULL);
+    window = glfwCreateWindow (width, height, isServer ? "ComputerNetworksCraft: server" : "ComputerNetworksCraft: client", NULL, NULL);
 
     if (!window)
     {
